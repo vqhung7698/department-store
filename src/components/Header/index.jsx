@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Search from "../Search";
 import Badge from '@mui/material/Badge';
+import Navigation from "./Navigation";
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import { MdShoppingCart } from "react-icons/md";
@@ -104,6 +105,7 @@ const Header = () => {
                     </div>
             </div>
 
+            <Navigation />
                 
 
 
