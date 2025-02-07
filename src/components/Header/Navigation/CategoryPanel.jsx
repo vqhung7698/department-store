@@ -44,6 +44,7 @@ const CategoryPanel = (props) => {
 
             <div className='scroll'>
                 <ul className='w-full'>
+                        {/* Fashion */}
                     <li className='list-none flex items-center relative flex-col'>
                         <Link to="/" className='w-full'>
                             <Button className="w-full !text-left !justify-start !px-3 !text-[rgba(0,0,0,0.8)]">
@@ -117,6 +118,7 @@ const CategoryPanel = (props) => {
 
                     </li>
 
+                        {/* Outerwear */}
                     <li className='list-none flex items-center relative flex-col'>
                         <Link to="/" className='w-full'>
                             <Button className="w-full !text-left !justify-start !px-3 !text-[rgba(0,0,0,0.8)]">
@@ -189,6 +191,7 @@ const CategoryPanel = (props) => {
                         )}
 
                     </li>
+                    
                 </ul>
             </div>
           
