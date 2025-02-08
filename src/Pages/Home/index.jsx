@@ -1,6 +1,14 @@
+import HomeCatSlider from "../../components/HomeCatSlider";
+import HomeSlider from "../../components/HomeSlider";
+
 const Home = () => {
     return (
-        <div>Home</div>
+        <>
+            <HomeSlider/>
+            <HomeCatSlider/>
+
+            <br /><br /><br /><br /><br /><br /><br />
+        </>
     )
 }
 
