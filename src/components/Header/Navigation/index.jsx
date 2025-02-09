@@ -313,7 +313,6 @@ const Navigation = () => {
                                     </li>                   
                                 </ul>
                             </div>
-
                         </li>
                             {/* Electronics */}
                         <li className="list-none relative">
@@ -361,11 +360,11 @@ const Navigation = () => {
                                         </Link>
                                     </li>
 
-                                        {/* Tivi */}
+                                        {/* Cameras */}
                                     <li className="list-none w-full relative">
                                         <Link to="/" className="w-full">
                                             <Button className="!text-[rgba(0,0,0,0.8)] w-full !text-left !justify-start !rounded-none">
-                                                Tivi
+                                                Cameras
                                             </Button>
                                         </Link>
                                     </li>                
