@@ -38,7 +38,7 @@ const CategoryPanel = (props) => {
     const DrawerList = (
         <Box sx={{ width: 250 }} role="presentation" className="categoryPanel">
             <h3 className='p-3 text-[18px] font-[500] flex items-center justify-between'>
-                Shop By Categories
+                Danh mục mua sắm
                 <IoCloseSharp onClick={toggleDrawer(false)} className='cursor-pointer text-[20px]'/>
             </h3>
 
@@ -48,7 +48,7 @@ const CategoryPanel = (props) => {
                     <li className='list-none flex items-center relative flex-col'>
                         <Link to="/" className='w-full'>
                             <Button className="w-full !text-left !justify-start !px-3 !text-[rgba(0,0,0,0.8)]">
-                                Fashion
+                                Thời trang
                             </Button>
                         </Link>
 
@@ -69,7 +69,7 @@ const CategoryPanel = (props) => {
                             <li className='list-none relative'>
                                 <Link to="/" className='w-full'>
                                     <Button className="w-full !text-left !justify-start !px-3 !text-[rgba(0,0,0,0.8)]">
-                                        Apparel
+                                        Trang phục
                                     </Button>
                                 </Link>
 
@@ -88,25 +88,31 @@ const CategoryPanel = (props) => {
                                         <ul className='inner_submenu w-full pl-3'>
                                             <li className='list-none relative mb-1'>
                                                 <Link to="/" className="link w-full !text-left !justify-start !px-3 transition text-[14px]">
-                                                    Smart Tablet
+                                                    Áo 
                                                 </Link>
                                             </li>
         
                                             <li className='list-none relative mb-1'>
                                                 <Link to="/" className="link w-full !text-left !justify-start !px-3 transition text-[14px]">
-                                                    Crepe T-Shirt
+                                                    Quần
                                                 </Link>
                                             </li>
         
                                             <li className='list-none relative mb-1'>
                                                 <Link to="/" className="link w-full !text-left !justify-start !px-3 transition text-[14px]">
-                                                    Leather watch
+                                                    Đồng hồ
                                                 </Link>
                                             </li>
         
                                             <li className='list-none relative mb-1'>
                                                 <Link to="/" className="link w-full !text-left !justify-start !px-3 transition text-[14px]">
-                                                    Rolling Diamond
+                                                    Mũ
+                                                </Link>
+                                            </li>
+
+                                            <li className='list-none relative mb-1'>
+                                                <Link to="/" className="link w-full !text-left !justify-start !px-3 transition text-[14px]">
+                                                    Giày dép
                                                 </Link>
                                             </li>
                                         </ul>
@@ -122,7 +128,7 @@ const CategoryPanel = (props) => {
                     <li className='list-none flex items-center relative flex-col'>
                         <Link to="/" className='w-full'>
                             <Button className="w-full !text-left !justify-start !px-3 !text-[rgba(0,0,0,0.8)]">
-                                Outerwear
+                                Thiết bị điện tử
                             </Button>
                         </Link>
                         
@@ -143,7 +149,7 @@ const CategoryPanel = (props) => {
                             <li className='list-none relative'>
                                 <Link to="/" className='w-full'>
                                     <Button className="w-full !text-left !justify-start !px-3 !text-[rgba(0,0,0,0.8)]">
-                                        Apparel
+                                        Đồ dùng thông minh
                                     </Button>
                                 </Link>
 
@@ -162,25 +168,25 @@ const CategoryPanel = (props) => {
                                         <ul className='inner_submenu w-full pl-3'>
                                             <li className='list-none relative mb-1'>
                                                 <Link to="/" className="link w-full !text-left !justify-start !px-3 transition text-[14px]">
-                                                    Smart Tablet
+                                                    Điện thoại thông minh
                                                 </Link>
                                             </li>
         
                                             <li className='list-none relative mb-1'>
                                                 <Link to="/" className="link w-full !text-left !justify-start !px-3 transition text-[14px]">
-                                                    Crepe T-Shirt
+                                                    Máy tính bảng
                                                 </Link>
                                             </li>
         
                                             <li className='list-none relative mb-1'>
                                                 <Link to="/" className="link w-full !text-left !justify-start !px-3 transition text-[14px]">
-                                                    Leather watch
+                                                    Đồng hồ thông minh
                                                 </Link>
                                             </li>
         
                                             <li className='list-none relative mb-1'>
                                                 <Link to="/" className="link w-full !text-left !justify-start !px-3 transition text-[14px]">
-                                                    Rolling Diamond
+                                                    Máy tính xách tay
                                                 </Link>
                                             </li>
                                         </ul>

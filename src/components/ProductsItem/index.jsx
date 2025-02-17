@@ -11,14 +11,18 @@ import { MdZoomOutMap } from "react-icons/md";
 const ProductsItem = () => {
     return (
        <div className="productsItem shadow-lg rounded-md overflow-hidden border-1 border-[rbga(0,0,0,0.1)]">
-            <div className="group ingWrappen w-[100%] h-[220px] overflow-hidden rounded-md relative">
-                <Link>
-                    <div className="img">
+            <div className="group ingWrappen w-[100%] overflow-hidden rounded-md relative">
+                <Link to="/">
+                    <div className="img h-[220px] overflow-hidden">
                         <img 
-                            src="https://res.cloudinary.com/duqoh8gf5/image/upload/v1736781298/1736781294264_montrez-men-light-blue-solid-jacket-product-images-rvwmdqy2dw-1-202311201747.jpg" 
+                            src="https://bizweb.dktcdn.net/thumb/grande/100/113/556/products/dammaxi.jpg?v=1499356965400" 
                             className="w-full"
                         />
-                    </div>
+                        <img 
+                            src="https://bizweb.dktcdn.net/thumb/large/100/311/013/products/2.jpg?v=1598952230033" 
+                            className="w-full transition-all duration-700 absolute top-0 left-0 opacity-0 group-hover:opacity-100 group-hover:scale-105"
+                        />
+                    </div> 
                 </Link>
             </div>
 
@@ -26,8 +30,9 @@ const ProductsItem = () => {
             p-1 text-[12px] font-[500]">50%</span>
 
             <div className="actions absolute top-[15px] right-[5px] z-50 flex items-center gap-2 
-                flex-col w-[50px]">
-                    {/* transition-all duration-300 group-hover:top-[15px] opacity-0 group-hover:opacity-100 */}
+                flex-col w-[50px]"> 
+                {/* transition-all duration-300 group-hover:top-[15px] opacity-0 group-hover:opacity-100" */}
+                    
                 <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !bg-white text-black 
                 hover:!bg-primary hover:!text-white group">
                     <FaRegHeart className="text-[18px] !text-black group-hover:text-white hover:!text-white"/>
@@ -48,12 +53,12 @@ const ProductsItem = () => {
             <div className="info p-3 py-5">
                 <h6 className="text-[13px]">
                     <Link to="/" className="link transition-all">
-                        RARE RABBIT
+                        Đầm body
                     </Link>
                 </h6>
                 <h3 className="text-[14px] title mt-1 font-[500] mb-1 text-[#000]">
                     <Link to="/" className="link transition-all">
-                        Men Layerr Regular Fit Spread
+                        Váy đầm maxi BCBG
                     </Link>
                 </h3>
 
@@ -61,16 +66,14 @@ const ProductsItem = () => {
 
                 <div className="flex items-center gap-4">
                     <span className="oldPrice line-through text-gray-500 text-[15px] font-[500]">
-                        $50.00
+                        400.000đ
                     </span>
                     <span className="price text-primary font-blod text-[15px] font-[600]">
-                        $25.00
+                        200.000đ
                     </span>
                 </div>
             </div>
-       </div>
-
-       
+       </div>       
     );
 };
 

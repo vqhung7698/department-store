@@ -21,6 +21,8 @@ body{
 
 .container{width: 95%; margin: auto;}
 
+.btn-org{background: #ff5252 !important; color: #fff !important; font-weight: 500; font-size: 16px;}
+
 .link:hover{color: #ff5252;}
 
 .MuiBadge-badge{background-color: #ff5252 !important;}
@@ -67,3 +69,12 @@ nav ul button:hover{background: none !important;}
 
 
 .productsSlider .swiper-wrappen{padding: 15px; margin-left: -15px; margin-right: -15px;}
+
+footer form input::placeholder{font-size: 14px;}
+
+
+.css-imrjgg-MuiButtonBase-root-MuiCheckbox-root.Mui-checked,
+.css-imrjgg-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate{color: #ff5252 !important;}
+
+
+.MuiFormControlLabel-label{font-size: 13px !important; color: rgba(0, 0, 0, 0.8);}

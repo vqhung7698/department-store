@@ -22,7 +22,7 @@ const HomeCatSlider = () => {
                                 <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/modules/cz_categoryimagelist/views/img/11-cz_categoryimagelist.jpg" 
                                     className='w-[80px] transition-all'/>
                                     <h3 className='text-[16px] font-[500] mt-3'>
-                                        Smart Tablet
+                                        Máy tính bảng
                                     </h3>
                             </div>
                         </Link>
@@ -35,7 +35,7 @@ const HomeCatSlider = () => {
                                 <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/modules/cz_categoryimagelist/views/img/12-cz_categoryimagelist.jpg" 
                                     className='w-[80px]'/>
                                 <h3 className='text-[15px] font-[500] mt-3'>
-                                    Crepe T-shirt
+                                    Áo thun Creed
                                 </h3>
                             </div>
                         </Link>
@@ -45,10 +45,10 @@ const HomeCatSlider = () => {
                         <Link to="/">
                             <div className='item py-7 px-3 bg-white rounbded-sm text-center flex items-center justify-center flex-clo
                             item rounded-[20px] overflow-hidden'>
-                                <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/modules/cz_categoryimagelist/views/img/13-cz_categoryimagelist.jpg" 
+                                <img src="https://lagihitech.vn/wp-content/uploads/2023/11/dong-ho-thong-minh-Fitbit-Charge-6-hinh-2.jpg" 
                                     className='w-[80px]'/>
                                 <h3 className='text-[15px] font-[500] mt-3'>
-                                    Iaether Watch
+                                    Đồng hồ thông minh
                                 </h3>
                             </div>
                         </Link>
@@ -61,7 +61,7 @@ const HomeCatSlider = () => {
                                 <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/modules/cz_categoryimagelist/views/img/14-cz_categoryimagelist.jpg" 
                                     className='w-[80px]'/>
                                 <h3 className='text-[15px] font-[500] mt-3'>
-                                    Rolling Diamond
+                                    Nhẫn kim cương
                                 </h3>
                             </div>
                         </Link>
@@ -71,10 +71,10 @@ const HomeCatSlider = () => {
                         <Link to="/">
                             <div className='item py-7 px-3 bg-white rounbded-sm text-center flex items-center justify-center flex-clo
                             item rounded-[20px] overflow-hidden'>
-                                <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/modules/cz_categoryimagelist/views/img/15-cz_categoryimagelist.jpg" 
-                                    className='w-[80px]'/>
+                                <img src="https://bizweb.dktcdn.net/100/360/581/products/tui-xach-tay-nu-gence-cao-cap-tx05-vang-1.jpg?v=1685612876783"
+                                className='w-[80px]' />
                                 <h3 className='text-[15px] font-[500] mt-3'>
-                                    Wooden Chair
+                                    Túi xách tay cao cấp
                                 </h3>
                             </div>
                         </Link>
@@ -87,7 +87,7 @@ const HomeCatSlider = () => {
                                 <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/modules/cz_categoryimagelist/views/img/16-cz_categoryimagelist.jpg" 
                                     className='w-[80px]'/>
                                 <h3 className='text-[15px] font-[500] mt-3'>
-                                    Sneaker Shoes
+                                    Giày thể thao 
                                 </h3>
                             </div>
                         </Link>
@@ -100,13 +100,13 @@ const HomeCatSlider = () => {
                                 <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/modules/cz_categoryimagelist/views/img/18-cz_categoryimagelist.jpg" 
                                     className='w-[80px]'/>
                                 <h3 className='text-[15px] font-[500] mt-3'>
-                                    Xbox Controller
+                                    Máy chơi game
                                 </h3>
                             </div>
                         </Link>
                     </SwiperSlide>
 
-                    <SwiperSlide>
+                    {/* <SwiperSlide>
                         <Link to="/">
                             <div className='item py-7 px-3 bg-white rounbded-sm text-center flex items-center justify-center flex-clo
                             item rounded-[20px] overflow-hidden'>
@@ -117,7 +117,7 @@ const HomeCatSlider = () => {
                                 </h3>
                             </div>
                         </Link>
-                    </SwiperSlide>
+                    </SwiperSlide> */}
                 </Swiper>
             </div>
         </div>

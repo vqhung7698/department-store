@@ -7,7 +7,7 @@ import { Navigation, Autoplay} from 'swiper/modules';
 const HomeSlider = () => {
     return (
     <>
-       <div className='homeSlider py-4'>
+       <div className='homeSlider py-8 pt-4 '>
             <div className='container'>
                 <Swiper spaceBetween={10} 
                         navigation={true} 
@@ -20,44 +20,50 @@ const HomeSlider = () => {
 
                     <SwiperSlide>
                         <div className='item rounded-[20px] overflow-hidden'>
-                            <img src="https://api.spicezgold.com/download/file_1734524893797_NewProject(13).jpg" 
-                            alt="Banner Slider" className='w-full' />
+                            <img src="https://bizweb.dktcdn.net/100/113/556/themes/161811/assets/slider_1.jpg?1676963410531" 
+                            alt="Banner Slider" className='w-full h-[441px]' />
                         </div>
                     </SwiperSlide>
+                    
                     <SwiperSlide>
                         <div className='item rounded-[20px] overflow-hidden'>
-                            <img src="https://api.spicezgold.com/download/file_1734524930884_NewProject(6).jpg" 
-                            alt="Banner Slider" className='w-full' />
+                            <img src="https://bizweb.dktcdn.net/100/493/370/themes/940719/assets/slider_lg_2.jpg?1713464283843" 
+                            alt="Banner Slider" className='w-full h-[441px] ' />
                         </div>
                     </SwiperSlide>
+
                     <SwiperSlide>
                         <div className='item rounded-[20px] overflow-hidden'>
-                            <img src="https://api.spicezgold.com/download/file_1734524958576_NewProject(10).jpg" 
-                            alt="Banner Slider" className='w-full' />
+                            <img src="https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/slider_2.jpg?1717815949845" 
+                            alt="Banner Slider" className='w-full h-[441px]' />
                         </div>    
                     </SwiperSlide>
+
                     <SwiperSlide>
                         <div className='item rounded-[20px] overflow-hidden'>
-                            <img src="https://api.spicezgold.com/download/file_1734524971122_NewProject(8).jpg" 
+                            <img src="https://bizweb.dktcdn.net/100/552/882/themes/993317/assets/slider_1.jpg?1739724176201" 
                             alt="Banner Slider" className='w-full' />
                         </div>
                     </SwiperSlide>
+
                     <SwiperSlide>
                         <div className='item rounded-[20px] overflow-hidden'>
-                            <img src="https://api.spicezgold.com/download/file_1734524985581_NewProject(11).jpg" 
-                            alt="Banner Slider" className='w-full' />
+                            <img src="https://bizweb.dktcdn.net/100/448/970/themes/894899/assets/slider_1.jpg?1729735774241" 
+                            alt="Banner Slider" className='w-full h-[441px]'/>
                         </div>    
                     </SwiperSlide>
+
                     <SwiperSlide>
                         <div className='item rounded-[20px] overflow-hidden'>
-                            <img src="https://api.spicezgold.com/download/file_1734525002307_1723967638078_slideBanner1.6bbeed1a0c8ffb494f7c.jpg" 
-                            alt="Banner Slider" className='w-full' />
+                            <img src="https://bizweb.dktcdn.net/100/508/659/themes/939030/assets/slider_1.jpg?1724730174011" 
+                            alt="Banner Slider" className='w-full h-[442px]' />
                         </div>
                     </SwiperSlide>
+
                     <SwiperSlide>
                         <div className='item rounded-[20px] overflow-hidden'>
-                            <img src="https://api.spicezgold.com/download/file_1734525014348_NewProject(7).jpg" 
-                            alt="Banner Slider" className='w-full' />
+                            <img src="https://bizweb.dktcdn.net/100/502/883/themes/934584/assets/slider_1.jpg?1719764721426" 
+                            alt="Banner Slider" className='w-full h-[442px]' />
                         </div>
                     </SwiperSlide>
                 </Swiper> 

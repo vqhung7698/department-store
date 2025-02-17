@@ -3,6 +3,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import ProductsItem from '../ProductsItem';
 
+
 import { Navigation } from 'swiper/modules';
 
 const ProductsSlider = (props) => {
@@ -38,13 +39,13 @@ const ProductsSlider = (props) => {
                     <ProductsItem/>
                 </SwiperSlide>
 
-                <SwiperSlide>
+                {/* <SwiperSlide>
                     <ProductsItem/>
                 </SwiperSlide>
 
                 <SwiperSlide>
                     <ProductsItem/>
-                </SwiperSlide>
+                </SwiperSlide> */}
 
             </Swiper>
        </div>

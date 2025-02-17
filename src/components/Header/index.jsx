@@ -26,7 +26,7 @@ const Header = () => {
                     <div className="flex items-center justify-between">
                         <div className="col1 w-[50%]">
                             <p className="text-[12px] font-[500]">
-                                Get up on 50% off new season styles, limited time only
+                                Giảm giá 50% cho các phong cách mùa mới, thời gian có hạn.
                             </p>
                         </div>
 
@@ -37,7 +37,7 @@ const Header = () => {
                                         to="/help-center" 
                                         className="text-[13px] link font-[500] transition"
                                         >
-                                        Help Center{""}
+                                        Trung tâm trợ giúp{""}
                                     </Link>
                                 </li>
                                 <li className="list-none">
@@ -45,7 +45,7 @@ const Header = () => {
                                         to="/order-tracking" 
                                         className="text-[13px] link font-[500] transition"
                                         >
-                                        Order Tracking{""}
+                                        Theo dõi đơn hàng{""}
                                     </Link>
                                 </li>
                             </ul>
@@ -69,12 +69,12 @@ const Header = () => {
                             <ul className="flex items-center justify-end gap-3 w-full">
                                 <li className="list-none">
                                     <Link to="/login" className="link transition text-[15px] font-[500]">
-                                        Login</Link> | &nbsp;
+                                        Đăng nhập</Link> | &nbsp;
                                     <Link to="/register" className="link transition text-[15px] font-[500]">
-                                        Register</Link>
+                                        Đăng ký</Link>
                                 </li>
                                 <li>
-                                    <Tooltip title="Comparre">
+                                    <Tooltip title="So sánh">
                                         <IconButton aria-label="cart">
                                             <StyledBadge badgeContent={4} color="secondary">
                                                 <IoGitCompareOutline />
@@ -83,7 +83,7 @@ const Header = () => {
                                     </Tooltip>
                                 </li>
                                 <li>
-                                    <Tooltip title="Wishlist">
+                                    <Tooltip title="Danh sách yêu thích">
                                         <IconButton aria-label="cart">
                                             <StyledBadge badgeContent={4} color="secondary">
                                                 <FaRegHeart />
@@ -92,7 +92,7 @@ const Header = () => {
                                     </Tooltip>
                                 </li>
                                 <li>
-                                    <Tooltip title="Cart">
+                                    <Tooltip title="Giỏ hàng">
                                         <IconButton aria-label="cart">
                                             <StyledBadge badgeContent={4} color="secondary">
                                                 <MdShoppingCart />
