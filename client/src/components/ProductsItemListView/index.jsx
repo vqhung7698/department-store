@@ -2,16 +2,16 @@ import "../ProductsItem/style.css";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button"; 
 import Rating from '@mui/material/Rating';
-
-
 import { FaRegHeart } from "react-icons/fa";
 import { IoGitCompareOutline } from "react-icons/io5";  
 import { MdZoomOutMap } from "react-icons/md";
+import { MdShoppingCart } from "react-icons/md";
 
-const ProductsItem = () => {
+
+const ProductsItemListView = () => {
     return (
-       <div className="productsItem shadow-lg rounded-md overflow-hidden border-1 border-[rbga(0,0,0,0.1)]">
-            <div className="group ingWrappen w-[100%] overflow-hidden rounded-md relative">
+       <div className="productsItem shadow-lg rounded-md overflow-hidden border-1 border-[rgba(0,0,0,0.1) flex items-center">
+            <div className="group ingWrappen w-[30%] overflow-hidden rounded-md relative">
                 <Link to="/">
                     <div className="img h-[220px] overflow-hidden">
                         <img 
@@ -50,17 +50,23 @@ const ProductsItem = () => {
                 </Button>
             </div>    
 
-            <div className="info p-3 py-5">
-                <h6 className="text-[13px]">
+            <div className="info p-3 py-5 px-8 w-[75%]">
+                <h6 className="text-[18px]">
                     <Link to="/" className="link transition-all">
-                        Đầm body
+                        Thời trang nữ
                     </Link>
                 </h6>
-                <h3 className="text-[14px] title mt-1 font-[500] mb-1 text-[#000]">
+                <h3 className="text-[20px] title mt-3 mb-4 font-[500] text-[#000]">
                     <Link to="/" className="link transition-all">
                         Váy đầm maxi BCBG
                     </Link>
                 </h3>
+
+                <p className="text-[14px] mb-3">
+                    Đơn giản và cá tính, đầm maxi cổ yếm của thương hiệu BCBG Generation 
+                    có thể cùng bạn đến nhiều sự kiện như dạo phố hoặc tham dự buổi tiệc trang trọng. 
+                    Phía sau độc đáo và duyên dáng tạo điểm nhấn thu hút và ấn tượng - Chất liệu chiffon - Cổ...
+                </p>
 
                 <Rating name="size-small" defaultValue={4} size="small" readOnly  />
 
@@ -72,9 +78,16 @@ const ProductsItem = () => {
                         200.000đ
                     </span>
                 </div>
+
+                <div className="mt-3">
+                    <Button className="btn-org flex gap-2"><MdShoppingCart className="text-[18px]"/>
+                        Thêm vào giỏ hàng
+                    </Button>
+                </div>
+
             </div>
        </div>       
     );
 };
 
-export default ProductsItem; 
+export default ProductsItemListView; 

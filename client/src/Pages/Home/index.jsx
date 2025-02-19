@@ -11,7 +11,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Footer from "../../components/Footer";
+import HomeSlider1 from "../../components/HomeSlider1";
+import BannerBox1 from "../../components/BannerBox1";
 
 
 const Home = () => {
@@ -25,13 +26,15 @@ const Home = () => {
     return (
         <>
             <HomeSlider/>
+
             <HomeCatSlider/>
 
+                {/* Sản phẩm phổ biến */}
             <section className="bg-white py-8">
                 <div className="container">
                     <div className="flex items-center justify-between">
                         <div className="leftSec">
-                            <h2 className="text-[20px] font-[600]">Sản phẩm phổ biến</h2>
+                            <h2 className="text-[22px] font-[600]">Sản phẩm phổ biến</h2>
                             <p className="text-[14px] font-[400]">Đừng bỏ lỡ các ưu đãi hiện tại cho đến cuối tháng.</p>
                         </div>
 
@@ -54,13 +57,16 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <ProductsSlider items={6}/>
+                    <ProductsSlider items={5}/>
+                    <ProductsSlider items={5}/>
+
                 </div>
             </section>
 
+                {/* Miễn phí giao hàng */}
             <section className="py-4 pt-2 bg-white">
                 <div className="container">
-                    <div className="freeShipping w-full w-[75%] m-auto py-4 p-4 border-2 border-[#ff5252]
+                    <div className="freeShipping w-[80%] m-auto py-4 p-4 border-2 border-[#ff5252]
                                     flex items-center justify-between rounded-md mb-7">                        
                         <div className="col1 flex items-center gap-4">
                             <LiaShippingFastSolid className="text-[50px]"/>
@@ -79,30 +85,51 @@ const Home = () => {
                 </div>
             </section>
 
-            
+                {/* Sản phẩm mới nhất */}
             <section className="py-5 pt-0 bg-white gap-5">
                 <div className="container"> 
                     <h2 className="text-[22px] font-[600] text-center">Sản phẩm mới nhất</h2>
 
 
-                    <ProductsSlider items={6}/> 
+                    <ProductsSlider items={5}/> 
 
-                    {/* <AdsBannerSlider items={3}/> */}
+                        {/* Banner */}
+                    <section className="py-6">
+                        <div className="container flex gap-5">
+                            <div className="part1 w-[70%]">
+                                <HomeSlider1/>
+                            </div>
+
+                            <div className="part2 w-[30%] flex items-center gap-5 justify-between flex-col ">
+                                <BannerBox1 info="left" title="Giày Tây Cao Cấp" price="150.000đ" image={"https://res.cloudinary.com/duqoh8gf5/image/upload/v1737022028/1737022025465_New_Project_55.jpg"}/>
+                                <BannerBox1 info="right" title="Balo Cao Cấp" price="120.000đ"  image={"https://res.cloudinary.com/duqoh8gf5/image/upload/v1737020760/1737020756772_New_Project_1.png"}/>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </section>
 
+                {/* Sản phẩm nổi bật */}
             <section className="py-5 pt-0 bg-white">
                 <div className="container"> 
                     <h2 className="text-[22px] font-[600] text-center">Sản phẩm nổi bật</h2>
 
 
-                    <ProductsSlider items={6}/> 
+                    <ProductsSlider items={5}/> 
 
-                    <AdsBannerSlider items={4}/>
+                    {/* <AdsBannerSlider items={4}/> */}
+
+                    <div className="container flex gap-5">
+                        <div className="part2 w-[100%] flex items-center gap-5 justify-center ">
+                            <BannerBox1 info="right" title="Giày Tây Cao Cấp" price="150.000đ" 
+                            image={"https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/cms-banner-6.jpg"}/>
+                            <BannerBox1 info="right" title="Balo Cao Cấp" price="120.000đ"  
+                            image={"https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/cms/cms-banner-7.jpg"}/>
+                            
+                        </div>
+                    </div>
                 </div>
             </section>
-
-
 
                 {/* Blog */}
             <section className="py-5 pb-8 pt-0 bg-white blogSection">
@@ -128,12 +155,6 @@ const Home = () => {
                     </Swiper>
                 </div>
             </section>
-
-            <Footer/>
-
-            
-
-            
         </>
     )
 }

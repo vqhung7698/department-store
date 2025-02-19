@@ -35,9 +35,9 @@ const ProductsSlider = (props) => {
                     <ProductsItem/>
                 </SwiperSlide>
 
-                <SwiperSlide>
+                {/* <SwiperSlide>
                     <ProductsItem/>
-                </SwiperSlide>
+                </SwiperSlide> */}
 
                 {/* <SwiperSlide>
                     <ProductsItem/>

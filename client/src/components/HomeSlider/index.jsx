@@ -9,14 +9,16 @@ const HomeSlider = () => {
     <>
        <div className='homeSlider py-8 pt-4 '>
             <div className='container'>
-                <Swiper spaceBetween={10} 
-                        navigation={true} 
-                        modules={[Navigation, Autoplay]} 
-                        autoplay={{
-                            delay: 2500,
-                            disableOnInteraction: false,
-                          }}
-                        className="sliderHome">
+                <Swiper
+                    loop={true}
+                    spaceBetween={10} 
+                    navigation={true} 
+                    modules={[Navigation, Autoplay]} 
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    className="sliderHome">
 
                     <SwiperSlide>
                         <div className='item rounded-[20px] overflow-hidden'>
