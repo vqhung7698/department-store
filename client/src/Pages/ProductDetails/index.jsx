@@ -1,5 +1,5 @@
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import { Link } from '@mui/material/Link';
+import  Link  from '@mui/material/Link';
 import ProductsZoom from '../../components/ProductsZoom';
 import { Rating } from '@mui/material';
 import { MdShoppingCart } from "react-icons/md";
