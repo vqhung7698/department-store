@@ -1,30 +1,35 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { createContext } from 'react';
+import { useState } from 'react';
+import { IoClose } from "react-icons/io5";
+
 import './App.css';
+import Button  from '@mui/material/Button';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './Pages/Home';
 import ProductListing from './Pages/ProductListing';
 import ProductDetails  from './Pages/ProductDetails';
-import { createContext } from 'react';
-
-import { useState } from 'react';
-
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import ProductsZoom from './components/ProductsZoom';
+import ProductDetailsComponent from './components/ProductDetailsComponent';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
+
 
 const MyContext = createContext();
 
 function App() {
 
-  const [openProductDetailsModal, setOpenProductDetailsModal] = useState(true);
+  const [openCartPanel, setOpenCartPanel] = useState(false);
 
-  const handleClickOpenProductDetailsModal = () => {
-    setOpenProductDetailsModal(true);
+  const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false);
+  const [maxWidth] = useState('lg');
+  const [fullWidth] = useState(true);
+
+  const toggleCartPanel = (newOpen) => () => {
+    setOpenCartPanel(newOpen);
   };
 
   const handleCloseProductDetailsModal = () => {
@@ -32,7 +37,10 @@ function App() {
   };
 
   const values = {
-
+    setOpenProductDetailsModal,
+    setOpenCartPanel,
+    openCartPanel,
+    toggleCartPanel
   }
 
   return (
@@ -44,36 +52,45 @@ function App() {
               <Route path={"/"} exact={true} element={<Home/>}/>
               <Route path={"/productListing"} exact={true} element={<ProductListing/>}/>
               <Route path={"/productDetails/:id"} exact={true} element={<ProductDetails/>}/>
+              <Route path={"/login"} exact={true} element={<Login/>}/>
+              <Route path={"/register"} exact={true} element={<Register/>}/>
             </Routes>
             <Footer />
           </MyContext.Provider>
       </BrowserRouter>
 
+
       <Dialog
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
         open={openProductDetailsModal}
         onClose={handleCloseProductDetailsModal}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        className='productDetailsModal'
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
-          </DialogContentText>
+          <div className='flex items-center w-full h-[500px] productDetailsModalContainer relative'>
+            <Button className='!w-[40px] !h-[40px] !min-w-[40px] !rounded-full !text-[#000]
+            !absolute top-[15px] right-[15px] !bg-[#f1f1f1]'
+            onClick={handleCloseProductDetailsModal}>
+              <IoClose className='text-[20px]'/>
+            </Button>
+            <div className='col1 w-[38%] px-3'>
+              <ProductsZoom/>
+            </div>
+            <div className='col2 w-[72%] py-8 px-8 pr-16 productContent'>
+              <ProductDetailsComponent/>
+            </div>
+          </div>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseProductDetailsModal}>Disagree</Button>
-          <Button onClick={handleCloseProductDetailsModal} autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
       </Dialog>
+
     </>
   );
 }
 
 export default App;
+
+export {MyContext}
  

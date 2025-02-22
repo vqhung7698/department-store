@@ -10,7 +10,7 @@ import "../Sidebar/style.css";
 import Rating from '@mui/material/Rating';
 
 const Sidebar = () => {
-    const [priceRange, setPriceRange] = useState([0, 1000000]);
+    const [priceRange, setPriceRange] = useState([100000, 10000000]);
     const [isOpenCategogyFilter, setIsOpenCategogyFilter] = useState(true);
     const [isOpenAvaFilter, setIsOpenAvaFilter] = useState(true);
     const [isOpenSizeFilter, setIsOpenSizeFilter] = useState(true);
@@ -93,8 +93,8 @@ const Sidebar = () => {
                 <RangeSlider 
                     value={priceRange} 
                     onInput={setPriceRange} 
-                    min={0} 
-                    max={1000000} 
+                    min={100000} 
+                    max={10000000} 
                     step={1000} 
                 />
                 <div className="flex pt-4 pb-2 priceRange">

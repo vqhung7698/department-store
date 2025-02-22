@@ -54,7 +54,7 @@ const Navigation = () => {
                                 <ul>
                                         
                                     <li className="list-none w-full relative">
-                                        <Link to="/" className="w-full">
+                                        <Link to="/productListing" className="w-full">
                                             <Button className="!text-[rgba(0,0,0,0.8)] w-full !text-left !justify-start !rounded-none">
                                                 Thời trang nam
                                             </Button>
@@ -106,7 +106,7 @@ const Navigation = () => {
                                     </li>
                                         
                                     <li className="list-none w-full">
-                                        <Link to="/" className="w-full">
+                                        <Link to="/productListing" className="w-full">
                                             <Button className="!text-[rgba(0,0,0,0.8)] w-full !text-left !justify-start !rounded-none">
                                                 Thời trang nữ
                                             </Button>
@@ -158,7 +158,7 @@ const Navigation = () => {
                                     </li>
                                         
                                     <li className="list-none w-full">
-                                        <Link to="/" className="w-full">
+                                        <Link to="/productListing" className="w-full">
                                             <Button className="!text-[rgba(0,0,0,0.8)] w-full !text-left !justify-start !rounded-none">
                                                 Thời trang trẻ em
                                             </Button>

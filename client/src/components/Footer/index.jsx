@@ -1,21 +1,29 @@
-import { LiaShippingFastSolid } from "react-icons/lia";
-import { SlEarphonesAlt } from "react-icons/sl";
-import { GoGift } from "react-icons/go";
-import { PiKeyReturn } from "react-icons/pi";
-import { LiaWalletSolid } from "react-icons/lia";
-import { HiOutlineChatAlt2 } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import { FaFacebookSquare } from "react-icons/fa";
-import { IoLogoYoutube } from "react-icons/io5";
-import { FaPinterestP } from "react-icons/fa";
+import { GoGift } from "react-icons/go";
+import { MyContext } from "../../App";
+import { useContext } from "react";
 import { FaInstagram } from "react-icons/fa"; 
+import { PiKeyReturn } from "react-icons/pi";
+import { FaPinterestP } from "react-icons/fa";
+import { IoCloseSharp } from "react-icons/io5";
+import { IoLogoYoutube } from "react-icons/io5";
+import { LiaWalletSolid } from "react-icons/lia"
+import { SlEarphonesAlt } from "react-icons/sl";;
+import { FaFacebookSquare } from "react-icons/fa";
+import { HiOutlineChatAlt2 } from "react-icons/hi";
+import { LiaShippingFastSolid } from "react-icons/lia";
 
-import FormControlLabel from '@mui/material/FormControlLabel';
+import Button from "@mui/material/Button";
+import Drawer from '@mui/material/Drawer';
 import Checkbox from '@mui/material/Checkbox';
+import CartPanel from '../CartPanel';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 const Footer = () => {
+
+    const context = useContext(MyContext)
+
     return (
         <>
             <footer className="py-6 bg-[#fafafa]">
@@ -256,6 +264,25 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Giỏ hàng */}
+            <Drawer 
+                open={context.openCartPanel}
+                onClose={context.toggleCartPanel(false)}
+                anchor={"right"}
+                className="cartPanel"
+                
+            >
+
+                <div className='flex items-center i=justify-between py-3 px-4 gap-3 border-b border-[rbga(0,0,0,0.1)]'>
+                <h4 className='text-[14px] font-[600]'>Giỏ hàng (4)</h4>
+                    <IoCloseSharp className='text-[22px] absolute right-[15px]' onClick={context.toggleCartPanel(false)}/>
+                </div>
+
+                <CartPanel/>
+            
+            </Drawer>
+
         </>
     );
 };
