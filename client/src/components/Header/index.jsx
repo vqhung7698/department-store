@@ -4,7 +4,7 @@ import Badge from '@mui/material/Badge';
 import Navigation from "./Navigation";
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import { MdShoppingCart } from "react-icons/md";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoGitCompareOutline } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa6";
 import Tooltip from '@mui/material/Tooltip';
@@ -95,7 +95,7 @@ const Header = () => {
                                     <Tooltip title="Giỏ hàng">
                                         <IconButton aria-label="cart">
                                             <StyledBadge badgeContent={4} color="secondary">
-                                                <MdShoppingCart />
+                                                <MdOutlineShoppingCart />
                                             </StyledBadge>
                                         </IconButton>
                                     </Tooltip>
