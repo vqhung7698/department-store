@@ -34,7 +34,7 @@ const Register = () => {
                             <TextField 
                                 type='email'
                                 id="email" 
-                                label="Email Id *" 
+                                label="Email của bạn *" 
                                 variant="outlined" 
                                 className='w-full'
                             /> 
@@ -44,7 +44,7 @@ const Register = () => {
                             <TextField 
                                 type={isShowPassword===false ? 'password' : 'text'}
                                 id="password" 
-                                label="Password *" 
+                                label="Mật khẩu *" 
                                 variant="outlined" 
                                 className='w-full'
                             /> 
@@ -62,20 +62,44 @@ const Register = () => {
                             </Button>
                         </div>
 
-                        <div className='flex items-center w-full mt-5 mb-5'>
+                        <div className='flex items-center w-full mt-5 mb-4'>
                             <Button className='btn-org btn-lg w-full'>Đăng ký</Button>
                         </div>
 
-                        <p className='text-[14px] font-[400] text-center'>Đã có tài khoản
+                        <div className='flex items-center justify-center'>
+                            <p className='text-[10px]'>Bằng việc đăng kí, bạn đã đồng ý với ClassyShope về 
+                                <br />
+                                <p className='text-center mt-1'>
+                                    <Link className='link'>
+                                        <span className='text-primary'>Điều khoản dịch vụ</span>
+                                    </Link> & <Link className='link'>
+                                        <span className='text-primary'>Chính sách bảo mật</span> 
+                                    </Link>
+                                </p>
+                            </p>
+                        </div>
+
+                        <p className='text-[14px] font-[400] text-center mt-2'>Bạn đã có tài khoản ?
                             <Link className='link text-[14px] font-[600] text-primary' to="/login"> Đăng nhập</Link>
                         </p>
 
-                        <p className='text-[14px] font-[400] text-center mt-3 mb-3'> Hoặc</p>
+                        <div className="flex items-center justify-center my-2">
+                            <div className="flex-grow border-t border-gray-300"></div>
+                            <p className='text-[14px] font-[400] text-[rgba(162,162,162)] text-center'>Hoặc</p>
+                            <div className="flex-grow border-t border-gray-300"></div>
+                        </div>
 
-                        <Button className='flex gap-3 w-full !bg-[#f1f1f1] btn-lg !text-black mt-5 mb-5'>
-                            <FcGoogle className='text-[20px]'/>
-                            Đăng nhập với Google
-                        </Button>
+                        <div className="flex gap-4 mt-4">
+                            <Button className='flex gap-3 w-full !bg-[#f1f1f1] btn-lg !text-black'>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
+                                className="text-[14px] font-[600] w-5 h-5 mr-2" />
+                                Facebook
+                            </Button>
+                            <Button className='flex gap-3 w-full !bg-[#f1f1f1] btn-lg !text-black'>
+                                <FcGoogle className="text-[14px] font-[600] w-5 h-5 mr-2" />
+                                Google
+                            </Button>
+                        </div>
                     </form>
                 </div>
             </div>

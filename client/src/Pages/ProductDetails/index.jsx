@@ -87,7 +87,7 @@ const ProductDetails = () => {
 
                         <span className={`link text-[18px] cursor-pointer font-[600] ${activeTab===2 && 'text-primary'}`}
                             onClick={()=> setActiveTab(2)}>
-                            Đánh giá (5)
+                            Đánh giá (2)
                         </span>
                     </div>
 

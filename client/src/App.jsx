@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createContext } from 'react';
 import { useState } from 'react';
 import { IoClose } from "react-icons/io5";
-
+import toast, { Toaster } from 'react-hot-toast';
 import './App.css';
 import Button  from '@mui/material/Button';
 import Header from './components/Header';
@@ -16,6 +16,10 @@ import ProductsZoom from './components/ProductsZoom';
 import ProductDetailsComponent from './components/ProductDetailsComponent';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import CartPage from './Pages/Cart';
+import Verify from './Pages/Verify';
+import ForgotPass from './Pages/ForgotPass';
+import Checkout from './Pages/Checkout';
 
 
 const MyContext = createContext();
@@ -36,11 +40,21 @@ function App() {
     setOpenProductDetailsModal(false);
   };
 
+  const openAlerBox = (status, msg) =>{
+    if(status==="success"){
+      toast.success(msg);
+    }
+    if(status==="error"){
+      toast.error(msg);
+    }
+  }
+
   const values = {
     setOpenProductDetailsModal,
     setOpenCartPanel,
     openCartPanel,
-    toggleCartPanel
+    toggleCartPanel,
+    openAlerBox
   }
 
   return (
@@ -54,11 +68,16 @@ function App() {
               <Route path={"/productDetails/:id"} exact={true} element={<ProductDetails/>}/>
               <Route path={"/login"} exact={true} element={<Login/>}/>
               <Route path={"/register"} exact={true} element={<Register/>}/>
+              <Route path={"/cart"} exact={true} element={<CartPage/>}/>
+              <Route path={"/verify"} exact={true} element={<Verify/>}/>
+              <Route path={"/forgot-password"} exact={true} element={<ForgotPass/>}/>
+              <Route path={"/checkout"} exact={true} element={<Checkout/>}/>
             </Routes>
             <Footer />
           </MyContext.Provider>
       </BrowserRouter>
 
+      <Toaster />
 
       <Dialog
         fullWidth={fullWidth}

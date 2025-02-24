@@ -33,7 +33,7 @@ const Footer = () => {
                             <LiaShippingFastSolid className="text-[50px] transition-all duration-300 group-hover:text-primary 
                             group-hover:-translate-y-1"/>
                             <h3 className="text-[18px] font-[600] mt-3">Miễn phí vận chuyển</h3>
-                            <p className="text-[13px] font-[500] text-center">Đối với hóa đơn từ 500.000đ</p>
+                            <p className="text-[13px] font-[500] text-center">Đối với hóa đơn từ 1.000.000đ</p>
                         </div>
 
                         <div className="col flex items-center justify-center flex-col group w-[15%]">

@@ -88,7 +88,7 @@ const Home = () => {
                 {/* Sản phẩm mới nhất */}
             <section className="py-5 pt-0 bg-white gap-5">
                 <div className="container"> 
-                    <h2 className="text-[22px] font-[600] text-center">Sản phẩm mới nhất</h2>
+                    <h2 className="text-[22px] font-[600] text-center border-b border-[rgba(0,0,0,0.2)]">Sản phẩm mới nhất</h2>
 
 
                     <ProductsSlider items={5}/> 
@@ -112,7 +112,7 @@ const Home = () => {
                 {/* Sản phẩm nổi bật */}
             <section className="py-5 pt-0 bg-white">
                 <div className="container"> 
-                    <h2 className="text-[22px] font-[600] text-center">Sản phẩm nổi bật</h2>
+                    <h2 className="text-[22px] font-[600] text-center border-b border-[rgba(0,0,0,0.2)]">Sản phẩm nổi bật</h2>
 
 
                     <ProductsSlider items={5}/> 
@@ -134,7 +134,7 @@ const Home = () => {
                 {/* Blog */}
             <section className="py-5 pb-8 pt-0 bg-white blogSection">
                 <div className="container">
-                    <h2 className="text-[25px] font-[600] mb-4 text-center">Blog</h2>
+                    <h2 className="text-[25px] font-[600] mb-4 text-center border-b border-[rgba(0,0,0,0.2)]">Blog</h2>
                     <Swiper slidesPerView={3}
                             spaceBetween={25} 
                             navigation={true} 

@@ -24,7 +24,7 @@ const ProductDetailsComponent = () => {
             <div className='flex items-center gap-3'>
                 <Rating name="size-small" defaultValue={4} size="small" readOnly  /> 
                             
-                <span className='text-[13px] cursor-pointer'> Review (5)</span>
+                <span className='text-[13px] cursor-pointer'>(2) Đánh giá</span>
             </div>
 
             <div className="flex items-center gap-4 mt-3">
@@ -56,12 +56,12 @@ const ProductDetailsComponent = () => {
             <div className="mt-5 flex gap-4">
                 <div className="flex border border-gray-300 rounded-md overflow-hidden">
                     <button 
-                        className="px-3 py-2 bg-gray-200 hover:bg-gray-300 transition" 
+                        className="px-3 py-2 bg-gray-100 hover:bg-gray-300 transition" 
                         onClick={decreaseQuantity}
                         >−</button>
                         <span className="px-4 py-2">{quantity}</span>
                     <button 
-                        className="px-3 py-2 bg-gray-200 hover:bg-gray-300 transition" 
+                        className="px-3 py-2 bg-gray-100 hover:bg-gray-300 transition" 
                         onClick={increaseQuantity}
                     >+</button>
                 </div>
