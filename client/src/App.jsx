@@ -20,6 +20,9 @@ import CartPage from './Pages/Cart';
 import Verify from './Pages/Verify';
 import ForgotPass from './Pages/ForgotPass';
 import Checkout from './Pages/Checkout';
+import MyAccount from './Pages/MyAccount';
+import MyList from './Pages/MyList';
+import Orders from './Pages/Orders';
 
 
 const MyContext = createContext();
@@ -31,6 +34,8 @@ function App() {
   const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false);
   const [maxWidth] = useState('lg');
   const [fullWidth] = useState(true);
+
+  const [isLogin, setIsLogin] = useState(true);
 
   const toggleCartPanel = (newOpen) => () => {
     setOpenCartPanel(newOpen);
@@ -54,7 +59,9 @@ function App() {
     setOpenCartPanel,
     openCartPanel,
     toggleCartPanel,
-    openAlerBox
+    openAlerBox,
+    isLogin,
+    setIsLogin
   }
 
   return (
@@ -72,6 +79,9 @@ function App() {
               <Route path={"/verify"} exact={true} element={<Verify/>}/>
               <Route path={"/forgot-password"} exact={true} element={<ForgotPass/>}/>
               <Route path={"/checkout"} exact={true} element={<Checkout/>}/>
+              <Route path={"/my-account"} exact={true} element={<MyAccount/>}/>
+              <Route path={"/my-list"} exact={true} element={<MyList/>}/>
+              <Route path={"/my-order"} exact={true} element={<Orders/>}/>
             </Routes>
             <Footer />
           </MyContext.Provider>
