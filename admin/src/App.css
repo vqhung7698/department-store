@@ -1,0 +1,64 @@
+body {
+  font-family: "Montserrat", "serif";
+  background: #f1f1f1;
+}
+.MuiBadge-badge {
+  background-color: #ff5252 !important;
+}
+
+.ReactCollapse--collapse {
+  transition: height 300ms;
+}
+
+.btn-blue {
+  background-color: #3872fa !important;
+  color: #fff !important;
+  padding: 8px 20px !important;
+}
+
+.btn.blue:hover {
+  background-color: #3067e5 !important;
+}
+
+.btn-sm {
+  padding: 6px 20px !important;
+  font-size: 13px !important;
+}
+
+.btn-lg {
+  padding: 8px 20px !important;
+  font-size: 16px !important;
+}
+
+th.MuiTableCell-root {
+  @apply bg-[#f1f1f1] py-1;
+}
+
+a.active button {
+  background: #e8e8e8 !important;
+}
+
+.MuiButton-icon svg {
+  font-size: 27px !important;
+}
+
+.css.rizt0-MuiTypography-root {
+  font-size: 14px !important;
+}
+
+.MuiAppBar-colorPrimary {
+  /* background: #e6e6e6 !important; */
+  background: darkorange !important;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.MuiSelect-select {
+  background: #fff !important;
+}
