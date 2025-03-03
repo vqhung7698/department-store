@@ -15,6 +15,14 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { IoMdClose } from "react-icons/io";
 import Slide from "@mui/material/Slide";
+import HomeSliderBanners from "./Pages/HomeSliderBanners";
+import AddHomeSlide from "./Pages/HomeSliderBanners/addHomeSlide";
+import { CategoryList } from "./Pages/Category";
+import AddCategory from "./Pages/Category/addCategory.jsx";
+import SubCategoryList from "./Pages/Category/index_subCategory.jsx";
+import AddSubCategory from "./Pages/Category/addSubCategory.jsx";
+import Users from "./Pages/Users/index.jsx";
+import Orders from "./Pages/Orders/index.jsx";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -32,6 +40,7 @@ function App() {
   });
 
   const router = createBrowserRouter([
+    // Link tới trang chủ
     {
       path: "/",
       exact: true,
@@ -42,7 +51,7 @@ function App() {
             <div className="contentMain flex">
               <div
                 className={`overflow-hidden sidebarWrapper ${
-                  isSidebarOpen === true ? 'w-[18%]' : 'w-[0px] opacity-0'
+                  isSidebarOpen === true ? "w-[18%]" : "w-[0px] opacity-0"
                 } transition-all`}
               >
                 <Sidebar />
@@ -50,7 +59,7 @@ function App() {
 
               <div
                 className={`contentRight py-4 px-5 ${
-                  isSidebarOpen === false ? 'w-[100%]' : 'w-[82%]'
+                  isSidebarOpen === false ? "w-[100%]" : "w-[82%]"
                 } transition-all`}
               >
                 <Dashboard />
@@ -60,7 +69,7 @@ function App() {
         </>
       ),
     },
-
+    // Link tới trang login
     {
       path: "/login",
       exact: true,
@@ -70,7 +79,7 @@ function App() {
         </>
       ),
     },
-
+    // Link tới trang products
     {
       path: "/products",
       exact: true,
@@ -93,6 +102,151 @@ function App() {
                 } transition-all`}
               >
                 <Products />
+              </div>
+            </div>
+          </section>
+        </>
+      ),
+    },
+    // Link tới trang banner
+    {
+      path: "/homeSlider/list",
+      exact: true,
+      element: (
+        <>
+          <section className="main">
+            <Header />
+            <div className="contentMain flex">
+              <div
+                className={`overflow-hidden sidebarWrapper ${
+                  isSidebarOpen === true ? "w-[18%]" : "w-[0px] opacity-0"
+                } transition-all`}
+              >
+                <Sidebar />
+              </div>
+
+              <div
+                className={`contentRight py-4 px-5 ${
+                  isSidebarOpen === false ? "w-[100%]" : "w-[82%]"
+                } transition-all`}
+              >
+                <HomeSliderBanners />
+              </div>
+            </div>
+          </section>
+        </>
+      ),
+    },
+    // Link tới trang category
+    {
+      path: "/category/list",
+      exact: true,
+      element: (
+        <>
+          <section className="main">
+            <Header />
+            <div className="contentMain flex">
+              <div
+                className={`overflow-hidden sidebarWrapper ${
+                  isSidebarOpen === true ? "w-[18%]" : "w-[0px] opacity-0"
+                } transition-all`}
+              >
+                <Sidebar />
+              </div>
+
+              <div
+                className={`contentRight py-4 px-5 ${
+                  isSidebarOpen === false ? "w-[100%]" : "w-[82%]"
+                } transition-all`}
+              >
+                <CategoryList />
+              </div>
+            </div>
+          </section>
+        </>
+      ),
+    },
+    // Link tới trang sub category
+    {
+      path: "/subCategory/list",
+      exact: true,
+      element: (
+        <>
+          <section className="main">
+            <Header />
+            <div className="contentMain flex">
+              <div
+                className={`overflow-hidden sidebarWrapper ${
+                  isSidebarOpen === true ? "w-[18%]" : "w-[0px] opacity-0"
+                } transition-all`}
+              >
+                <Sidebar />
+              </div>
+
+              <div
+                className={`contentRight py-4 px-5 ${
+                  isSidebarOpen === false ? "w-[100%]" : "w-[82%]"
+                } transition-all`}
+              >
+                <SubCategoryList />
+              </div>
+            </div>
+          </section>
+        </>
+      ),
+    },
+    // Link tới trang users
+    {
+      path: "/users",
+      exact: true,
+      element: (
+        <>
+          <section className="main">
+            <Header />
+            <div className="contentMain flex">
+              <div
+                className={`overflow-hidden sidebarWrapper ${
+                  isSidebarOpen === true ? "w-[18%]" : "w-[0px] opacity-0"
+                } transition-all`}
+              >
+                <Sidebar />
+              </div>
+
+              <div
+                className={`contentRight py-4 px-5 ${
+                  isSidebarOpen === false ? "w-[100%]" : "w-[82%]"
+                } transition-all`}
+              >
+                <Users />
+              </div>
+            </div>
+          </section>
+        </>
+      ),
+    },
+    // Link tới trang orders
+    {
+      path: "/orders",
+      exact: true,
+      element: (
+        <>
+          <section className="main">
+            <Header />
+            <div className="contentMain flex">
+              <div
+                className={`overflow-hidden sidebarWrapper ${
+                  isSidebarOpen === true ? "w-[18%]" : "w-[0px] opacity-0"
+                } transition-all`}
+              >
+                <Sidebar />
+              </div>
+
+              <div
+                className={`contentRight py-4 px-5 ${
+                  isSidebarOpen === false ? "w-[100%]" : "w-[82%]"
+                } transition-all`}
+              >
+                <Orders />
               </div>
             </div>
           </section>
@@ -145,7 +299,19 @@ function App() {
               </Typography>
             </Toolbar>
           </AppBar>
+          {/* Mở toàn màn hình trang thêm sản phẩm */}
           {isOpenFullScreenPanel?.model === "Thêm sản phẩm" && <AddProduct />}
+
+          {/* Mở toàn màn hình trang thêm banner */}
+          {isOpenFullScreenPanel?.model === "Thêm banner" && <AddHomeSlide />}
+
+          {/* Mở toàn màn hình trang thêm danh mục*/}
+          {isOpenFullScreenPanel?.model === "Thêm danh mục" && <AddCategory />}
+
+          {/* Mở toàn màn hình trang thêm danh mục con*/}
+          {isOpenFullScreenPanel?.model === "Thêm danh mục con" && (
+            <AddSubCategory />
+          )}
         </Dialog>
       </MyContext.Provider>
     </>

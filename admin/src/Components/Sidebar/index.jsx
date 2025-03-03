@@ -32,7 +32,11 @@ const Sidebar = () => {
       >
         <div className="py-2 w-full">
           <Link to="/">
-            <img src="../../../public/logo2.png" alt="Logo" className="w-[120px]" />
+            <img
+              src="../../../public/logo2.png"
+              alt="Logo"
+              className="w-[120px]"
+            />
           </Link>
         </div>
 
@@ -72,19 +76,21 @@ const Sidebar = () => {
             <Collapse isOpened={submenuIndex === 1 ? true : false}>
               <ul className="w-full">
                 <li className="w-full">
-                  <Button
-                    className="!text-[rgba(0,0,0,0.7)] !capitalize !justify-start
+                  <Link to="/homeSlider/list">
+                    <Button
+                      className="!text-[rgba(0,0,0,0.7)] !capitalize !justify-start
               !w-full !text-[13px] !font-[500] !pl-9 flex gap-3"
-                  >
-                    <span
-                      className="block w-[5px] h-[5px] rounded-full 
+                    >
+                      <span
+                        className="block w-[5px] h-[5px] rounded-full 
                     bg-[rgba(0,0,0,0.2)]"
-                    ></span>
-                    Danh sách ảnh đầu trang
-                  </Button>
+                      ></span>
+                      Danh sách ảnh đầu trang
+                    </Button>
+                  </Link>
                 </li>
 
-                <li className="w-full">
+                {/* <li className="w-full">
                   <Button
                     className="!text-[rgba(0,0,0,0.7)] !capitalize !justify-start
               !w-full !text-[13px] !font-[500] !pl-9 flex gap-3"
@@ -95,7 +101,7 @@ const Sidebar = () => {
                     ></span>
                     Thêm ảnh đầu trang
                   </Button>
-                </li>
+                </li> */}
               </ul>
             </Collapse>
           </li>
@@ -150,7 +156,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
 
-                <li className="w-full">
+                {/* <li className="w-full">
                   <Button
                     className="!text-[rgba(0,0,0,0.7)] !capitalize !justify-start
                 !w-full !text-[13px] !font-[500] !pl-9 flex gap-3"
@@ -167,7 +173,7 @@ const Sidebar = () => {
                     ></span>
                     Tải sản phẩm lên
                   </Button>
-                </li>
+                </li> */}
               </ul>
             </Collapse>
           </li>
@@ -188,14 +194,14 @@ const Sidebar = () => {
                   className={`transition-all ${
                     submenuIndex === 4 ? "rotate-180" : ""
                   }`}
-                ></FaAngleDown>
+                />
               </span>
             </Button>
 
             <Collapse isOpened={submenuIndex === 4 ? true : false}>
               <ul className="w-full">
                 <li className="w-full">
-                  <Link to="/categories">
+                  <Link to="/category/list">
                     <Button
                       className="!text-[rgba(0,0,0,0.7)] !capitalize !justify-start
                 !w-full !text-[13px] !font-[500] !pl-9 flex gap-3"
@@ -209,7 +215,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
 
-                <li className="w-full">
+                {/* <li className="w-full">
                   <Link to="/category/add">
                     <Button
                       className="!text-[rgba(0,0,0,0.7)] !capitalize !justify-start
@@ -222,10 +228,10 @@ const Sidebar = () => {
                       Thêm danh mục
                     </Button>
                   </Link>
-                </li>
+                </li> */}
 
                 <li className="w-full">
-                  <Link to="/category/subCat">
+                  <Link to="/subCategory/list">
                     <Button
                       className="!text-[rgba(0,0,0,0.7)] !capitalize !justify-start
               !w-full !text-[13px] !font-[500] !pl-9 flex gap-3"
@@ -239,7 +245,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
 
-                <li className="w-full">
+                {/* <li className="w-full">
                   <Link to="/category/subCat/add">
                     <Button
                       className="!text-[rgba(0,0,0,0.7)] !capitalize !justify-start
@@ -252,7 +258,7 @@ const Sidebar = () => {
                       Thêm danh mục con
                     </Button>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </Collapse>
           </li>

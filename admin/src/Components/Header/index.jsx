@@ -11,7 +11,7 @@ import Divider from "@mui/material/Divider";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMdLogOut } from "react-icons/io";
 import { MyContext } from "../../App";
-import { AiOutlineMenuUnfold } from "react-icons/ai";
+import Link from "@mui/material/Link";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -147,7 +147,9 @@ const Header = () => {
             </Menu>
           </div>
         ) : (
-          <Button className="btn-blue btn-sm !rounded-full">Đăng nhập</Button>
+          <Link to="/login"> 
+            <Button className="btn-blue btn-sm !rounded-full">Đăng nhập</Button>
+          </Link>
         )}
       </div>
     </header>

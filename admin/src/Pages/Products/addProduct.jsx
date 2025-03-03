@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Rating from "@mui/material/Rating";
@@ -198,6 +198,7 @@ const AddProduct = () => {
         <div className="col w-full p-5 px-0">
           <h3 className="font-[700] text-[18px] mb-2">Tải hình ảnh</h3>
           <div className="grid grid-cols-7 gap-4">
+            {/* Upload ảnh 1 */}
             <div className="uploadBoxWrapper relative">
               <span
                 className="absolute w-[20px] h-[20px] rounded-full overflow-hidden
@@ -221,7 +222,30 @@ const AddProduct = () => {
                 />
               </div>
             </div>
-
+            {/* Upload ảnh 2 */}
+            <div className="uploadBoxWrapper relative">
+              <span
+                className="absolute w-[20px] h-[20px] rounded-full overflow-hidden
+               bg-red-700 -top-[5px] -right-[5px] flex items-center justify-center 
+               z-50 cursor-pointer"
+              >
+                <IoMdClose className="text-white text-[20px]" />
+              </span>
+              <div
+                className="uploadBox p-0 rounded-md overflow-hidden border 
+              border-dashed border-[rgba(0,0,0,0.3)] h-[150px] w-[100%] 
+              bg-gray-100 cursor-pointer hover:bg-gray-200 flex items-center 
+              justify-centerflex-col relative"
+              >
+                <LazyLoadImage
+                  className="w-full h-full object-cover"
+                  alt={"image"}
+                  effect="blur"
+                  wrapperProps={{ style: { transitionDelay: "0.5s" } }}
+                  src="../../../public/Polo_nam.jpg"
+                />
+              </div>
+            </div>
             <UploadBox multiple={true} />
           </div>
         </div>
