@@ -23,6 +23,9 @@ import SubCategoryList from "./Pages/Category/index_subCategory.jsx";
 import AddSubCategory from "./Pages/Category/addSubCategory.jsx";
 import Users from "./Pages/Users/index.jsx";
 import Orders from "./Pages/Orders/index.jsx";
+import ForgotPassword from "./Pages/ForgotPassword/index.jsx";
+import VerifyAccount from "./Pages/VerifyAccount/index.jsx";
+import ChangePassword from "./Pages/ChangePassword/index.jsx";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -76,6 +79,36 @@ function App() {
       element: (
         <>
           <Login />
+        </>
+      ),
+    },
+    // Link tới trang forgot password
+    {
+      path: "/forgot-password",
+      exact: true,
+      element: (
+        <>
+          <ForgotPassword />
+        </>
+      ),
+    },
+    // Link tới trang verify account
+    {
+      path: "/verify-account",
+      exact: true,
+      element: (
+        <>
+          <VerifyAccount />
+        </>
+      ),
+    },
+    // Link tới trang change password
+    {
+      path: "/change-password",
+      exact: true,
+      element: (
+        <>
+          <ChangePassword />
         </>
       ),
     },

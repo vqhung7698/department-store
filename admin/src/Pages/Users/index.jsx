@@ -84,14 +84,14 @@ export const Users = () => {
                 </TableCell>
                 {/* Ảnh người dùng */}
                 <TableCell width={300}>
-                  <div className="flex items-center gap-4 w-[250px]">
+                  <div className="flex items-center gap-4 w-[100px]">
                     <div
                       className="img w-full rounded-md 
                         overflow-hidden group"
                     >
                       <Link to="/product/45745" data-discover="true">
                         <img
-                          src="../../../public/banner_1.jpg"
+                          src="../../../icons/user.png"
                           alt="Banner"
                           className="w-full group-hover:scale-l05 transition-all"
                         />

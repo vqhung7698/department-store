@@ -2,35 +2,39 @@ import { Button } from "@mui/material";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { CgLogIn } from "react-icons/cg";
-import { FaRegUser } from "react-icons/fa6";
-import { LoadingButton } from "@mui/lab";
-import { FcGoogle } from "react-icons/fc";
-import { BsFacebook } from "react-icons/bs";
+// import { FaRegUser } from "react-icons/fa6";
+// import { LoadingButton } from "@mui/lab";
+// import { FcGoogle } from "react-icons/fc";
+// import { BsFacebook } from "react-icons/bs";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
-  const [loadingGoogle, setLoadingGoogle] = React.useState(false);
-  const [loadingFb, setLoadingFb] = React.useState(false);
+  // const [loadingGoogle, setLoadingGoogle] = React.useState(false);
+  // const [loadingFb, setLoadingFb] = React.useState(false);
 
   const [isPasswordShow, setisPasswordShow] = React.useState(false);
 
-  function handleClickGoogle() {
-    setLoadingGoogle(true);
-  }
+  // function handleClickGoogle() {
+  //   setLoadingGoogle(true);
+  // }
 
-  function handleClickFb() {
-    setLoadingFb(true);
-  }
+  // function handleClickFb() {
+  //   setLoadingFb(true);
+  // }
 
   return (
     <section className="bg-white w-full ">
       <header className="w-full fixed top-0 left-0 px-4 py-3 flex items-center justify-between z-50">
         <Link to="/">
           {/* Ảnh logo */}
-          <img src="/logo" alt="logo" className="w-[120px]" />
+          <img
+            src="../../../public/logo2.png"
+            alt="logo"
+            className="w-[120px]"
+          />
         </Link>
 
         <div className="flex items-center gap-0">
@@ -41,15 +45,15 @@ const Login = () => {
             </Button>
           </NavLink>
 
-          <Button className="!rounded-full !text-[rgba(0,0,0,0.8)] !px-5 flex gap-1">
+          {/* <Button className="!rounded-full !text-[rgba(0,0,0,0.8)] !px-5 flex gap-1">
             <FaRegUser className="text-[15px]" />
             Đăng ký
-          </Button>
+          </Button> */}
         </div>
       </header>
       {/* Ảnh background */}
       <img
-        src="/asad"
+        src="sadsad"
         alt="background"
         className="w-full fixed top-0 left-0 opacity-5"
       />
@@ -58,9 +62,9 @@ const Login = () => {
         className="loginBox card w-[600px] h-[auto] pb-20 mx-auto 
       pt-20 relative z-50"
       >
-        <div className="text-center">
-          <img src="asdsad" alt="logo" className="m-auto" />
-        </div>
+        {/* <div className="text-center">
+          <img src="../../../public/logo2.png" alt="logo" className="m-auto" />
+        </div> */}
 
         <h1 className="text-center text-[35px] font-[800] mt-4">
           Chào mừng bạn trở lại
@@ -68,7 +72,7 @@ const Login = () => {
           Đăng nhập để tiếp tục
         </h1>
 
-        <div className="flex items-center justify-center w-full mt-5 gap-4">
+        {/* <div className="flex items-center justify-center w-full mt-5 gap-4">
           <LoadingButton
             size="small"
             onClick={handleClickGoogle}
@@ -94,20 +98,20 @@ const Login = () => {
           >
             Đăng nhập với Facebook
           </LoadingButton>
-        </div>
+        </div> */}
 
         <br />
 
-        <div className="w-full flex items-center justify-center gap-3">
+        {/* <div className="w-full flex items-center justify-center gap-3">
           <span className="flex items-center w-[100px] h-[1px] bg-[rgba(0,0,0,0.3)]"></span>
           <span className="text-[14px] font-[500]">
             {" "}
             Hoặc có thể đăng nhập qua email của bạn
           </span>
           <span className="flex items-center w-[100px] h-[1px] bg-[rgba(0,0,0,0.3)]"></span>
-        </div>
+        </div> */}
 
-        <br />
+        {/* <br /> */}
 
         <form className="w-full px-8 mt-3">
           <div className="form-group mb-4 w-full">

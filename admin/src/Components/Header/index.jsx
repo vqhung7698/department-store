@@ -147,9 +147,7 @@ const Header = () => {
             </Menu>
           </div>
         ) : (
-          <Link to="/login"> 
-            <Button className="btn-blue btn-sm !rounded-full">Đăng nhập</Button>
-          </Link>
+          <Button className="btn-blue btn-sm !rounded-full">Đăng nhập</Button>
         )}
       </div>
     </header>

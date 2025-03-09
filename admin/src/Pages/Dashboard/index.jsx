@@ -187,7 +187,7 @@ const Dashboard = () => {
       <DashboardBoxes></DashboardBoxes>
 
       {/* Danh sách SP (MUI) */}
-      <div className="card my-4 shadow-md sm:rounded-lg bg-white">
+      {/* <div className="card my-4 shadow-md sm:rounded-lg bg-white">
         <div className="flex items-center justify-between px-5 py-5">
           <h2 className="text-[18px] font-[600]">DS sản phẩm (MUI)</h2>
         </div>
@@ -225,7 +225,7 @@ const Dashboard = () => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </div>
+      </div> */}
 
       {/* Danh sách đơn hàng gần đây */}
       <div className="card my-4 shadow-md sm:rounded-lg bg-white">
