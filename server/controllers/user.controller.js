@@ -3,7 +3,10 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import sendEmailFun from "../config/sendEmail.js";
 import VerificationEmail from "../utils/verifyEmailTemplate.js";
+import generateAccessToken from "../utils/generateAccessToken.js";
+import generateRefreshToken from "../utils/generateRefreshToken.js";
 
+//Đăng ký tài khoản
 export async function registerUserController(request, response) {
   try {
     let user;
@@ -76,6 +79,7 @@ export async function registerUserController(request, response) {
   }
 }
 
+// Xác thực email
 export async function verifyEmailController(request, response) {
   try {
     const { email, otp } = request.body;
@@ -120,5 +124,102 @@ export async function verifyEmailController(request, response) {
     return response
       .status(500)
       .json({ message: error.message || error, error: true, success: false });
+  }
+}
+
+// Đăng nhập
+export async function loginUserController(request, response) {
+  const { email, password } = request.body;
+  const user = await UserModel.findOne({ email: email });
+
+  try {
+    if (!user) {
+      return response.status(400).json({
+        success: false,
+        error: true,
+        message: "Chưa đăng ký tài khoản",
+      });
+    }
+
+    if (user.status !== "Hoạt động") {
+      response.status(400).json({
+        success: false,
+        error: true,
+        message: "Liên hệ quản trị viên để được hỗ trợ",
+      });
+    }
+
+    const checkPassword = await bcryptjs.compare(password, user.password);
+    if (!checkPassword) {
+      return response.status(400).json({
+        success: false,
+        error: true,
+        message: "Sai mật khẩu",
+      });
+    }
+
+    const accessToken = await generateAccessToken(user._id);
+    const refreshToken = await generateRefreshToken(user._id);
+
+    const updateUser = await UserModel.findByIdAndUpdate(user?._id, {
+      last_login_date: new Date(),
+    });
+
+    const cookiesOption = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    };
+
+    response.cookie("accessToken", accessToken, cookiesOption);
+    response.cookie("refreshToken", refreshToken, cookiesOption);
+
+    return response.json({
+      success: true,
+      error: false,
+      message: "Đăng nhập thành công",
+      data: {
+        accessToken,
+        refreshToken,
+      },
+    });
+  } catch (error) {
+    return response.status(500).json({
+      success: false,
+      error: true,
+      message: error.message || error,
+    });
+  }
+}
+
+// Đăng xuất
+export async function logoutController(request, response) {
+  try {
+    const userid = request.userId;
+
+    const cookiesOption = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    };
+
+    response.clearCookie("accessToken", cookiesOption);
+    response.clearCookie("refreshToken", cookiesOption);
+
+    const removeRefreshToken = await UserModel.findByIdAndUpdate(userid, {
+      refreshToken: "",
+    });
+
+    return response.json({
+      success: true,
+      error: false,
+      message: "Đăng xuất thành công",
+    });
+  } catch (error) {
+    return response.status(500).json({
+      success: false,
+      error: true,
+      message: error.message || error,
+    });
   }
 }
