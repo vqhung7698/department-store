@@ -1,7 +1,8 @@
-import { sendEmail } from "./emailService";
+import { sendEmail } from "./emailService.js";
 
-const sendEmailFun = async (to, subject, text, html) => {
-  const result = await sendEmailFun(to, subject, text, html);
+const sendEmailFun = async ({ sendTo, subject, text, html }) => {
+  console.log(sendTo);
+  const result = await sendEmail(sendTo, subject, text, html);
   if (result.success) {
     return true;
   } else {

@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema(
     name: {
       type: String,
       required: [true, "Please provide a name"],
+      unique: true,
     },
     email: {
       type: String,
@@ -54,10 +55,10 @@ const userSchema = mongoose.Schema(
         ref: "order",
       },
     ],
-    otp:{
+    otp: {
       type: String,
     },
-    otpExpires:{
+    otpExpires: {
       type: Date,
     },
     role: {
