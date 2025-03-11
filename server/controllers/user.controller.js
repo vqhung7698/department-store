@@ -5,6 +5,17 @@ import sendEmailFun from "../config/sendEmail.js";
 import VerificationEmail from "../utils/verifyEmailTemplate.js";
 import generateAccessToken from "../utils/generateAccessToken.js";
 import generateRefreshToken from "../utils/generateRefreshToken.js";
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
+import exp from "constants";
+import { error } from "console";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
 
 //Đăng ký tài khoản
 export async function registerUserController(request, response) {
@@ -142,10 +153,18 @@ export async function loginUserController(request, response) {
     }
 
     if (user.status !== "Hoạt động") {
-      response.status(400).json({
+      return response.status(400).json({
         success: false,
         error: true,
         message: "Liên hệ quản trị viên để được hỗ trợ",
+      });
+    }
+
+    if (user.verify_email !== true) {
+      return response.status(400).json({
+        success: false,
+        error: true,
+        message: "Email của bạn chưa được xác thực! Vui lòng xác thực",
       });
     }
 
@@ -222,4 +241,193 @@ export async function logoutController(request, response) {
       message: error.message || error,
     });
   }
+}
+
+// Upload ảnh
+var imagesArr = [];
+export async function userAvatarController(request, response) {
+  try {
+    imagesArr = [];
+
+    const userId = request.userId;
+    const image = request.files;
+
+    const user = await UserModel.findOne({ _id: userId });
+
+    const imgUrl = user.avatar;
+
+    const urlArr = imgUrl.split("/");
+    const avatarImage = urlArr[urlArr.length - 1];
+
+    const imageName = avatarImage.split(".")[0];
+
+    if (imageName) {
+      const res = await cloudinary.uploader.destroy(
+        imageName,
+        (error, result) => {}
+      );
+    }
+
+    const options = {
+      use_filename: true,
+      unique_filename: false,
+      overwrite: false,
+    };
+
+    for (let i = 0; i < image?.length; i++) {
+      const img = await cloudinary.uploader.upload(
+        image[i].path,
+        options,
+        function (error, result) {
+          console.log(result);
+          imagesArr.push(result.secure_url);
+          fs.unlinkSync(`uploads/${request.files[i].filename}`);
+          console.log(request.files[i].filename);
+        }
+      );
+    }
+
+    user.avatar = imagesArr[0];
+    await user.save();
+
+    return response.status(200).json({
+      _id: userId,
+      avatar: imagesArr[0],
+    });
+  } catch (error) {
+    return response.status(500).json({
+      success: false,
+      error: true,
+      message: error.message || error,
+    });
+  }
+}
+
+export async function removeImageFromCloudinary(request, response) {
+  const imgUrl = request.body.img;
+
+  const urlArr = imgUrl.split("/");
+  const image = urlArr[urlArr.length - 1];
+
+  const imageName = image.split(".")[0];
+
+  if (imageName) {
+    const res = await cloudinary.uploader.destroy(
+      imageName,
+      (error, result) => {}
+    );
+    if (res) {
+      response.status(200).json({
+        success: true,
+        error: false,
+        message: "Xóa ảnh thành công",
+      });
+    }
+  }
+}
+
+//Update chi tiết user
+export async function updateUserDetail(request, response) {
+  try {
+    const userId = request.userId;
+    const { name, email, mobile, password } = request.body;
+
+    const userExist = await UserModel.findById({ userId });
+
+    if (!userExist) {
+      return response.status(400).send("Không thể cập nhật người dùng");
+    }
+
+    let verifyCode = "";
+
+    if (email !== userExist.email) {
+      verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+    }
+
+    let hashPassword = "";
+
+    if (password) {
+      const salt = await bcryptjs.genSalt(10);
+      hashPassword = await bcryptjs.hash(password, salt);
+    } else {
+      hashPassword = userExist.password;
+    }
+
+    const updateUser = await UserModel.findByIdAndUpdate(
+      userId,
+      {
+        name: name,
+        mobile: mobile,
+        email: email,
+        verify_email: email !== userExist.email ? false : true,
+        password: hashPassword,
+        otp: verifyCode !== "" ? verifyCode : null,
+        otpExpires: verifyCode !== "" ? Date.now() + 600000 : "",
+      },
+      { new: true }
+    );
+
+    if (email !== userExist.email) {
+      await sendEmailFun({
+        sendTo: email,
+        subject: "Xác thực email từ cửa hàng Dahu",
+        text: "",
+        html: VerificationEmail(name, verifyCode),
+      });
+    }
+
+    return response.json({
+      message: "Cập nhật người dùng thành công",
+      user: updateUser,
+      success: true,
+      error: false,
+    });
+  } catch (error) {
+    return response.status(500).json({
+      message: error.message || error,
+      success: false,
+      error: true,
+    });
+  }
+}
+
+// Quên mật khẩu
+export async function forgotPasswordController(request, response) {
+  try {
+    const { email } = request.body;
+
+    const user = await UserModel.findOne({ email: email });
+
+    if (!user) {
+      return response.status(400).json({
+        message: "Người dùng không tồn tại",
+        success: false,
+        error: true,
+      });
+    }
+
+    let verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+    const updateUser = await UserModel.findByIdAndUpdate(
+      user?._id,
+      {
+        otp: verifyCode,
+        otpExpires: Date.now() + 600000,
+      },
+      { new: true }
+    );
+
+    await sendEmailFun({
+      sendTo: email,
+      subject: "Xác thực email từ cửa hàng Dahu",
+      text: "",
+      html: VerificationEmail(user?.name, verifyCode),
+    });
+
+    return response.json({
+      message: "Gửi mã xác thực thành công, kiểm tra email của bạn",
+      success: true,
+      error: false,
+    });
+  } catch (error) {}
 }
