@@ -17,7 +17,7 @@ cloudinary.config({
   secure: true,
 });
 
-//Đăng ký tài khoản
+// Đăng ký tài khoản
 export async function registerUserController(request, response) {
   try {
     let user;
@@ -326,7 +326,7 @@ export async function removeImageFromCloudinary(request, response) {
   }
 }
 
-//Update chi tiết user
+// Update chi tiết user
 export async function updateUserDetail(request, response) {
   try {
     const userId = request.userId;
@@ -404,30 +404,218 @@ export async function forgotPasswordController(request, response) {
         success: false,
         error: true,
       });
+    } else {
+      let verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+      user.otp = verifyCode;
+      user.otpExpires = Date.now() + 600000;
+
+      await user.save();
+
+      await sendEmailFun({
+        sendTo: email,
+        subject: "Xác thực email từ cửa hàng Dahu",
+        text: "",
+        html: VerificationEmail(user.name, verifyCode),
+      });
+
+      return response.json({
+        message: "Gửi mã xác thực thành công, kiểm tra email của bạn",
+        success: true,
+        error: false,
+      });
+    }
+  } catch (error) {}
+}
+
+// Xác thực OTP quên mật khẩu
+export async function verifyOtpForgotPassword(request, response) {
+  try {
+    const { email, otp } = request.body;
+
+    const user = await UserModel.findOne({ email: email });
+
+    if (!user) {
+      return response.status(400).json({
+        message: "Người dùng không tồn tại",
+        success: false,
+        error: true,
+      });
     }
 
-    let verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+    if (!email || !otp) {
+      return response.status(400).json({
+        message: "Email hoặc mã xác thực không được nhập",
+        success: false,
+        error: true,
+      });
+    }
 
-    const updateUser = await UserModel.findByIdAndUpdate(
-      user?._id,
-      {
-        otp: verifyCode,
-        otpExpires: Date.now() + 600000,
-      },
-      { new: true }
-    );
+    if (otp !== user.otp) {
+      return response.status(400).json({
+        message: "Mã xác thực không đúng",
+        success: false,
+        error: true,
+      });
+    }
 
-    await sendEmailFun({
-      sendTo: email,
-      subject: "Xác thực email từ cửa hàng Dahu",
-      text: "",
-      html: VerificationEmail(user?.name, verifyCode),
-    });
+    const currentTime = new Date().toISOString;
+    if (user.otpExpires < currentTime) {
+      return response.status(400).json({
+        message: "Mã xác thực đã hết hạn",
+        success: false,
+        error: true,
+      });
+    }
 
-    return response.json({
-      message: "Gửi mã xác thực thành công, kiểm tra email của bạn",
+    user.otp = "";
+    user.otpExpires = "";
+    await user.save();
+
+    return response.status(400).json({
+      message: "Xác thực OTP thành công",
       success: true,
       error: false,
     });
-  } catch (error) {}
+  } catch (error) {
+    return response.status(500).json({
+      message: error.message || error,
+      success: false,
+      error: true,
+    });
+  }
+}
+
+//  Reset mật khẩu
+export async function resetPassword(request, response) {
+  try {
+    const { email, newPassword, confirmPassword } = request.body;
+
+    if (!email || !newPassword || !confirmPassword) {
+      return response.status(400).json({
+        message: "Vui lòng cung cấp đủ thông tin cả ba ô",
+        success: false,
+        error: true,
+      });
+    }
+
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return response.status(404).json({
+        message: "Không tìm thấy tài khoản",
+        success: false,
+        error: true,
+      });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return response.status(400).json({
+        message: "Mật khẩu không khớp",
+        success: false,
+        error: true,
+      });
+    }
+
+    const salt = await bcryptjs.genSalt(10);
+    const hashPassword = await bcryptjs.hash(confirmPassword, salt);
+
+    user.password = hashPassword;
+    await user.save();
+    // const update = await UserModel.findOneAndUpdate(user._id, {
+    //   password: hashPassword,
+    // });
+
+    return response.status(200).json({
+      message: "Đổi mật khẩu thành công",
+      success: true,
+      error: false,
+    });
+  } catch (error) {
+    return response.status(500).json({
+      message: error.message || error,
+      success: false,
+      error: true,
+    });
+  }
+}
+
+// Làm mới token
+export async function refreshToken(request, response) {
+  try {
+    const refreshToken =
+      request.cookies.refreshToken ||
+      request?.headers?.authorization?.split(" ")[1];
+
+    if (!refreshToken) {
+      return response.status(401).json({
+        message: "Token không hợp lệ! Vui lòng cung cấp token",
+        success: false,
+        error: true,
+      });
+    }
+
+    const verifyToken = await jwt.verify(
+      refreshToken,
+      process.env.SECRET_KEY_REFRESH_TOKEN
+    );
+
+    if (!verifyToken) {
+      return response.status(401).json({
+        message: "Token hết hạn",
+        error: true,
+        success: false,
+      });
+    }
+
+    const userId = verifyToken?._id;
+    const newAccessToken = await generateAccessToken(userId);
+
+    const cookiesOption = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    };
+
+    response.cookie("accessToken", newAccessToken, cookiesOption);
+
+    return response.status(200).json({
+      message: "Token mới đã được tạo",
+      success: true,
+      error: false,
+      data: {
+        accessToken: newAccessToken,
+      },
+    });
+  } catch (error) {
+    return response.status(500).json({
+      message: error.message || error,
+      success: false,
+      error: true,
+    });
+  }
+}
+
+// Lấy chi tiết đăng nhập
+export async function userDetails(request, response) {
+  try {
+    const userId = request.userId;
+
+    const user = await UserModel.findById(userId).select(
+      "-password -refresh_token"
+    );
+
+    return response.status(200).json({
+      message: "Lấy chi tiết đăng nhập thành công",
+      success: true,
+      error: false,
+      data: user,
+    });
+  } catch (error) {
+    return response.status(500).json({
+      message: "Có gì đó không đúng",
+      success: false,
+      error: true,
+    });
+  }
 }

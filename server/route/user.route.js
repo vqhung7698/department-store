@@ -3,11 +3,15 @@ import {
   forgotPasswordController,
   loginUserController,
   logoutController,
+  refreshToken,
   registerUserController,
   removeImageFromCloudinary,
+  resetPassword,
   updateUserDetail,
   userAvatarController,
+  userDetails,
   verifyEmailController,
+  verifyOtpForgotPassword,
 } from "../controllers/user.controller.js";
 
 import auth from "../middlewares/auth.js";
@@ -27,6 +31,10 @@ userRouter.put(
 );
 userRouter.delete("/deleteImage", auth, removeImageFromCloudinary);
 userRouter.put("/:id", auth, updateUserDetail);
-userRouter.put("/forgotPassword", forgotPasswordController);
+userRouter.post("/forgotPassword", forgotPasswordController);
+userRouter.post("/verifyOtpForgotPassword", verifyOtpForgotPassword);
+userRouter.post("/resetPassword", resetPassword);
+userRouter.post("/refreshToken", refreshToken);
+userRouter.get("/userDetails", auth, userDetails);
 
 export default userRouter;
