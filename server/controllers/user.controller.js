@@ -303,6 +303,7 @@ export async function userAvatarController(request, response) {
   }
 }
 
+// Xóa ảnh
 export async function removeImageFromCloudinary(request, response) {
   const imgUrl = request.body.img;
 
