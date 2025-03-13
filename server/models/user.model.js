@@ -30,11 +30,11 @@ const userSchema = mongoose.Schema(
     },
     access_token: {
       type: String,
-      default: '',
+      default: "",
     },
     refresh_token: {
       type: String,
-      default: '',
+      default: "",
     },
     last_login_data: {
       type: Date,
@@ -55,6 +55,7 @@ const userSchema = mongoose.Schema(
       {
         type: mongoose.Schema.ObjectId,
         ref: "cartProduct",
+        default: [],
       },
     ],
     orderHistory: [
@@ -83,4 +84,3 @@ const userSchema = mongoose.Schema(
 const UserModel = mongoose.model("user", userSchema);
 
 export default UserModel;
-
