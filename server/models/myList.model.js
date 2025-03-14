@@ -10,7 +10,7 @@ const myListSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    productname: {
+    productName: {
       type: String,
       required: true,
     },
