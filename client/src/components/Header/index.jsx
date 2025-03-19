@@ -19,6 +19,7 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { fetchDataFromApi } from "../../utils/api";
 
 
 
@@ -43,6 +44,21 @@ const Header = () => {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    const logout = () => {
+        setAnchorEl(null);
+
+        fetchDataFromApi(`/api/user/logou?token=${localStorage.getItem('accessToken')}t`, 
+            {withCredentials: true}).then((res) =>{
+            console.log(res);
+            if(res?.error === false) {
+                context.setIsLogin(false);
+                localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+
+            }
+        })
+    }
 
     return (
         <header className="bg-white">
@@ -113,11 +129,11 @@ const Header = () => {
                                         <div className="info flex flex-col">
                                             <h4 className="leading-3 text-[14px] font-[500] text-[rgba(0,0,0,0.6)] mb-0 
                                                 capitalize text-left justify-start">
-                                                User123
+                                                {context?.userData?.name}
                                             </h4>
                                             <span className="text-[13px] font-[400] capitalize text-left text-[rgba(0,0,0,0.6)]
                                                 justify-start">
-                                                User123@gmail.com
+                                                {context?.userData?.email}
                                             </span>
                                         </div>
                                     </Button>
@@ -180,12 +196,11 @@ const Header = () => {
                                             </MenuItem>
                                         </Link>
                                        
-                                        <Link to="/logout" className="w-full block">
-                                            <MenuItem onClick={handleClose} className="flex gap-2 !py-2">
+                                        
+                                            <MenuItem onClick={logout} className="flex gap-2 !py-2">
                                                 <RiLogoutBoxRLine className="text-[18px]"/>
                                                 <span className="text-[14px]"> Đăng xuất</span>
-                                            </MenuItem>
-                                        </Link>                                    
+                                            </MenuItem>                                  
                                     </Menu>
                                     </>
                                 )}
@@ -199,6 +214,7 @@ const Header = () => {
                                         </IconButton>
                                     </Tooltip>
                                 </li>
+
                                 <li>
                                     <Tooltip title="Danh sách yêu thích">
                                         <IconButton aria-label="cart">
@@ -208,6 +224,7 @@ const Header = () => {
                                         </IconButton>
                                     </Tooltip>
                                 </li>
+                                
                                 <li>
                                     <Tooltip title="Giỏ hàng">
                                         <IconButton aria-label="cart" onClick={()=>context.setOpenCartPanel(true)}>

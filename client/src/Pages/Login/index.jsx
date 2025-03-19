@@ -6,18 +6,79 @@ import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { MyContext } from '../../App';
+import { postData } from '../../utils/api';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 const Login = () => {
 
+    const [isLoading, setIsLoading] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(false);
-    
+    const [formFields, setFormFields] = useState({
+        email: "",
+        password: ""
+    })
+
     const context = useContext(MyContext);
     const history = useNavigate();
 
     const forgotPass = () => {     
         context.openAlerBox("success", "OTP")    
         history("/verify");      
+    }
+
+    const onChangeInput = (e) => {
+        const { name, value } = e.target;
+        setFormFields(() => {
+            return {
+                ...formFields,
+                [name]: value
+            }
+        })
+    }
+
+    const valideValue = Object.values(formFields).every(el => el)
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        setIsLoading(true);
+
+        if(formFields.email==="") {
+            context.alerBox("error", "Vui lòng nhập Email của bạn")
+            return false
+        }
+
+        if(formFields.password==="") {
+            context.alerBox("error", "Vui lòng nhập Mật khẩu")
+            return false
+        }
+
+        postData("/api/user/login", formFields, {withCredentials: true}).then((res)=>{
+            console.log(res)
+
+            if(res?.error !== true) {
+                setIsLoading(false);
+                context.alerBox("success", res?.message);
+                setFormFields({
+                    email: "",
+                    password: ""
+                })
+
+                localStorage.setItem("accessToken", res?.data?.accesstoken);
+                localStorage.setItem("refreshToken", res?.data?.refreshToken);
+
+                context.setIslogin(true);
+
+                history("/")
+            }else {
+                context.openAlerBox("error", res?.message);
+                setIsLoading(false);
+            }
+            
+        })
     }
 
     return (
@@ -29,15 +90,18 @@ const Login = () => {
                         Đăng nhập tài khoản
                     </h3>
                     
-                    <form className='w-full mt-5'>
+                    <form className='w-full mt-5' onSubmit={handleSubmit}>
                         <div className='form-group w-full mb-5'>
                             <TextField 
                                 type='email'
                                 id="email" 
+                                name='email'
+                                value={formFields.email}
+                                disabled={isLoading===true ? true : false}
                                 label="Email Id *" 
                                 variant="outlined" 
                                 className='w-full'
-                                name='name'
+                                onChange={onChangeInput}
                             /> 
                         </div>
 
@@ -50,6 +114,9 @@ const Login = () => {
                                 variant="outlined" 
                                 className='w-full'
                                 name='password'
+                                value={formFields.password}
+                                disabled={isLoading===true ? true : false}
+                                onChange={onChangeInput}
                             /> 
                             <Button className='!absolute top-[10px] right-[10px] z-50 !w-[35px] !h-[35px] !min-w-[35px]
                                 !rounded-full !text-black'
@@ -70,11 +137,18 @@ const Login = () => {
                             Quên mật khẩu?
                         </a>
 
-                        <Link to="/">           
-                            <div className='flex items-center w-full mt-3 mb-3'>
-                                <Button className='btn-org btn-lg w-full'>Đăng Nhập</Button>
-                            </div>
-                        </Link> 
+                        <div className='flex items-center w-full mt-5 mb-4'>
+                            <Button type="submit" disabled={!valideValue}
+                            className='btn-org btn-lg w-full flex gap-3'>
+
+                            {
+                                isLoading === true ? <CircularProgress color='inherit' />
+                                :
+                                'Đăng nhập'
+                            }
+
+                            </Button>
+                        </div>
 
                         <p className='text-[14px] font-[400] text-center'>Bạn mới biết đến ClassyShop ?
                             <Link className='link text-[14px] font-[600] text-primary' to="/register"> Đăng ký</Link>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 import { useState } from 'react';
 import { IoClose } from "react-icons/io5";
 import toast, { Toaster } from 'react-hot-toast';
@@ -23,6 +23,7 @@ import Checkout from './Pages/Checkout';
 import MyAccount from './Pages/MyAccount';
 import MyList from './Pages/MyList';
 import Orders from './Pages/Orders';
+import { fetchDataFromApi } from './utils/api';
 
 
 const MyContext = createContext();
@@ -35,7 +36,8 @@ function App() {
   const [maxWidth] = useState('lg');
   const [fullWidth] = useState(true);
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const toggleCartPanel = (newOpen) => () => {
     setOpenCartPanel(newOpen);
@@ -44,6 +46,22 @@ function App() {
   const handleCloseProductDetailsModal = () => {
     setOpenProductDetailsModal(false);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("accesstoken");
+
+    if(token!==undefined && token!==null && token!=="") {
+      setIsLogin(true);
+
+      fetchDataFromApi(`/api/user/userDetails?token=${token}`).then((res) => {
+        console.log(res)
+        setUserData(res.data);
+      })
+
+    }else {
+      setIsLogin(false);
+    }
+  }, [isLogin])
 
   const openAlerBox = (status, msg) =>{
     if(status==="success"){
@@ -61,7 +79,9 @@ function App() {
     toggleCartPanel,
     openAlerBox,
     isLogin,
-    setIsLogin
+    setIsLogin,
+    userData,
+    setUserData
   }
 
   return (

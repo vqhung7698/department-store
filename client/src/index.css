@@ -229,3 +229,8 @@ footer form input::placeholder{font-size: 14px;}
 .myAccountTabs li a.active::before{height: 100%; opacity: 1px; top: 0px;}
 
 .myAccountTabs li a.active button svg{color: #ff5252 !important; opacity: 1 !important;}
+
+button .MuiCircularProgress-root{
+    width: 30px !important;
+    height: 30px !important;
+}

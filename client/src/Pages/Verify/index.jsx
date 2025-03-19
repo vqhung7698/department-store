@@ -1,7 +1,9 @@
 import OtpBox from "../../components/OtpBox";
 import Button from "@mui/material/Button";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { postData } from "../../utils/api";
+import { MyContext } from "../../App";
 
 
 const Verify = () => {
@@ -11,10 +13,25 @@ const Verify = () => {
     const handleOtpSubmit = (otp) => {
         setOtpValue(otp);
     };
-    
+
+    const history = useNavigate();
+    const context = useContext(MyContext);
+   
+    // Đăng ký và xác thực email
     const verifyOTP = (e) => {
         e.prevenDefault();
-        alert(otp)
+        postData("/api/user/verifyEmail", {
+            email: localStorage.getItem("userEmail"),
+            otp: otp
+        }).then((res) => {
+            if(res?.error === false) {
+                context.alertBox("success", res?.massage);
+                localStorage.renoveItem("userEmail")
+                history("/login")
+            }else {
+                context.alertBox("error", res?.massage);
+            }
+        })
     }
 
     return (
@@ -29,7 +46,7 @@ const Verify = () => {
                     </h3>
             
                     <p className="text-[14px] text-center mt-2 mb-3">Mã OTP sẽ gửi đến 
-                        <span className="text-primary font-blod"> tham123@gmail.com</span>
+                        <span className="text-primary font-blod">{localStorage.getItem("userEmail")}</span>
                     </p>
 
                     <form onSubmit={verifyOTP}>
@@ -37,11 +54,9 @@ const Verify = () => {
                         {otpValue && <p className="mt-4 text-black text-center">Mã OTP: {otpValue}</p>}
                         
                         <div className="mt-3 flex items-center justify-center">
-                            <Link to="/forgot-password">
-                                <Button type="submit" className="btn-org flex gap-2"> 
-                                    OK
-                                </Button>
-                            </Link>
+                            <Button type="submit" className="btn-org flex gap-2"> 
+                                OK
+                            </Button>
                         </div>
                     </form>
                 </div>
