@@ -63,11 +63,11 @@ function App() {
     }
   }, [isLogin])
 
-  const openAlerBox = (status, msg) =>{
-    if(status==="success"){
+  const alerBox = (type, msg) =>{
+    if(type==="success"){
       toast.success(msg);
     }
-    if(status==="error"){
+    if(type==="error"){
       toast.error(msg);
     }
   }
@@ -77,7 +77,7 @@ function App() {
     setOpenCartPanel,
     openCartPanel,
     toggleCartPanel,
-    openAlerBox,
+    alerBox,
     isLogin,
     setIsLogin,
     userData,

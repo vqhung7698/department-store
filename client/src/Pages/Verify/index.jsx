@@ -16,22 +16,40 @@ const Verify = () => {
 
     const history = useNavigate();
     const context = useContext(MyContext);
-   
+
     // Đăng ký và xác thực email
     const verifyOTP = (e) => {
         e.prevenDefault();
-        postData("/api/user/verifyEmail", {
-            email: localStorage.getItem("userEmail"),
-            otp: otp
-        }).then((res) => {
-            if(res?.error === false) {
-                context.alertBox("success", res?.massage);
-                localStorage.renoveItem("userEmail")
-                history("/login")
-            }else {
-                context.alertBox("error", res?.massage);
-            }
-        })
+
+        const actionType = localStorage.getItem("actionType");
+
+        if (actionType!=="forgotPassword") {
+            postData("/api/user/verifyEmail", {
+                email: localStorage.getItem("userEmail"),
+                otp: otp
+            }).then((res) => {
+                if(res?.error === false) {
+                    context.alertBox("success", res?.massage);
+                    localStorage.renoveItem("userEmail");
+                    history("/login")
+                }else {
+                    context.alertBox("error", res?.massage);
+                }
+            })
+        }else {
+            postData("/api/user/verifyOtpForgotPassword", {
+                email: localStorage.getItem("userEmail"),
+                otp: otp
+            }).then((res) => {
+                if(res?.error === false) {
+                    context.alertBox("success", res?.massage);
+                    
+                    history("/forgotPassword")
+                }else {
+                    context.alertBox("error", res?.massage);
+                }
+            })
+        }
     }
 
     return (
@@ -45,8 +63,8 @@ const Verify = () => {
                         Xác minh OTP
                     </h3>
             
-                    <p className="text-[14px] text-center mt-2 mb-3">Mã OTP sẽ gửi đến 
-                        <span className="text-primary font-blod">{localStorage.getItem("userEmail")}</span>
+                    <p className="text-[14px] text-center mt-2 mb-3">
+                        Mã OTP sẽ gửi đến <span className="text-primary font-blod">{localStorage.getItem("userEmail")}</span>
                     </p>
 
                     <form onSubmit={verifyOTP}>

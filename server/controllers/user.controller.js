@@ -473,10 +473,10 @@ export async function verifyOtpForgotPassword(request, response) {
     user.otpExpires = "";
     await user.save();
 
-    return response.status(400).json({
+    return response.status(200).json({
       message: "Xác thực OTP thành công",
-      success: true,
-      error: false,
+      success: false,
+      error: true,
     });
   } catch (error) {
     return response.status(500).json({

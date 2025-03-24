@@ -42,17 +42,17 @@ const Register = () => {
         setIsLoading(true);
 
         if(formFields.name==="") {
-            context.openAlerBox("error", "Vui lòng nhập Họ Tên")
-            return false
+            context.alerBox("error", "Vui lòng nhập Họ Tên")
+            return false;
         }
 
         if(formFields.email==="") {
-            context.openAlerBox("error", "Vui lòng nhập Email của bạn")
+            context.alerBox("error", "Vui lòng nhập Email của bạn")
             return false
         }
 
         if(formFields.password==="") {
-            context.openAlerBox("error", "Vui lòng nhập Mật khẩu")
+            context.alerBox("error", "Vui lòng nhập Mật khẩu")
             return false
         }
 
@@ -61,16 +61,16 @@ const Register = () => {
 
             if(res?.error !== true) {
                 setIsLoading(false);
-                context.openAlerBox("success", res?.message);
+                context.alerBox("success", res?.message);
                 localStorage.setItem("userEmail", formFields.email)
                 setFormFields({
                     name: "",
                     email: "",
                     password: ""
                 })
-                history("/verify")
+                history("/verifyEmail")
             }else {
-                context.openAlerBox("error", res?.message);
+                context.alerBox("error", res?.message);
                 setIsLoading(false);
             }
             
