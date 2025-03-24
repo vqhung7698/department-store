@@ -24,8 +24,25 @@ const Login = () => {
     const history = useNavigate();
 
     const forgotPass = () => {     
-        context.openAlerBox("success", "OTP")    
-        history("/verify");      
+        if(formFields.email==="") {
+            context.alerBox("error", "Vui lòng nhập Email của bạn");
+            return false;
+        }else {
+            context.alerBox("success", `Đã gửi mã OTP đến ${formFields.email}`);
+            localStorage.setItem("userEmail", formFields.email);
+            localStorage.setItem("actionType", 'forgotPassword');
+
+            postData("/api/user/forgotPassword", {
+                email: formFields.email,
+            }).then((res) => {
+                if(res?.error === false) {
+                    context.alerBox("success", res?.massage);                   
+                    history("/verifyEmail")
+                }else {
+                    context.alerBox("error", res?.massage);
+                }
+            })
+        }            
     }
 
     const onChangeInput = (e) => {
@@ -74,7 +91,7 @@ const Login = () => {
 
                 history("/")
             }else {
-                context.openAlerBox("error", res?.message);
+                context.alerBox("error", res?.message);
                 setIsLoading(false);
             }
             
