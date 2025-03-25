@@ -1,4 +1,4 @@
-import UserModel from "../models/user.model.js";
+import AdminModel from "../models/admin.model.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import sendEmailFun from "../config/sendEmail.js";
@@ -9,6 +9,7 @@ import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import exp from "constants";
 import { error } from "console";
+import dotenv from "dotenv";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -18,51 +19,47 @@ cloudinary.config({
 });
 
 // Đăng ký tài khoản
-export async function registerUserController(request, response) {
+export async function registerAdminController(request, response) {
+  // Kiểm tra token bảo mật trong header
+  const token = request.headers["admin-token"];
+  if (!token || token !== process.env.ADMIN_REGISTRATION_TOKEN) {
+    return response
+      .status(403)
+      .json({ error: "Vui lòng cung cấp token để đăng ký" });
+  }
+
+  // Nếu muốn cho phép tạo admin duy nhất, có thể kiểm tra xem đã có admin nào chưa
+  const existingAdmin = await AdminModel.findOne({ role: "admin" });
+  if (existingAdmin) {
+    return response.status(400).json({ error: "Tài khoản admin đã tồn tại" });
+  }
+
+  // Lấy email và password từ body
+  const { name, email, password } = request.body;
+  if (!email || !password || !name) {
+    return response
+      .status(400)
+      .json({ error: "Phải cung cấp name, email và password" });
+  }
+
   try {
-    let user;
-
-    const { name, email, password } = request.body;
-    if (!name || !email || !password) {
-      return response.status(400).json({
-        message: "Hãy điền vào tất cả ô trống",
-        error: true,
-        success: false,
-      });
-    }
-    //Kiểm tra email có trùng không?
-    const emailUser = await UserModel.findOne({ email: email });
-    if (emailUser) {
-      return response.json({
-        message: "Email đã tồn tại",
-        error: true,
-        success: false,
-      });
-    }
-    //Kiểm tra tên có trùng không?
-    const nameUser = await UserModel.findOne({ name: name });
-    if (nameUser) {
-      return response.json({
-        message: "Tên đã tồn tại",
-        error: true,
-        success: false,
-      });
-    }
-
+    // Mã hoá mật khẩu
     const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
 
     const salt = await bcryptjs.genSalt(10);
-    const hashPassword = await bcryptjs.hash(password, salt);
+    const hashedPassword = await bcryptjs.hash(password, salt);
 
-    user = new UserModel({
+    // Đổi tên biến instance thành adminAccount để tránh nhầm lẫn với model AdminModel
+    const adminAccount = new AdminModel({
       email: email,
-      password: hashPassword,
+      password: hashedPassword,
       name: name,
       otp: verifyCode,
       otpExpires: Date.now() + 600000, // 10 phút
+      role: "admin",
     });
 
-    await user.save();
+    await adminAccount.save();
 
     //Xác thực email
     await sendEmailFun({
@@ -73,7 +70,7 @@ export async function registerUserController(request, response) {
     });
 
     const token = jwt.sign(
-      { email: user.email, id: user._id },
+      { email: adminAccount.email, id: adminAccount._id },
       process.env.JSON_WEB_TOKEN_SECRET_KEY
     );
 
@@ -84,9 +81,8 @@ export async function registerUserController(request, response) {
       token: token,
     });
   } catch (error) {
-    return response
-      .status(500)
-      .json({ message: error.message || error, error: true, success: false });
+    console.error("Lỗi tạo tài khoản admin", error);
+    return response.status(500).json({ error: "Lỗi server" });
   }
 }
 
@@ -95,7 +91,7 @@ export async function verifyEmailController(request, response) {
   try {
     const { email, otp } = request.body;
 
-    const user = await UserModel.findOne({ email: email });
+    const user = await AdminModel.findOne({ email: email });
 
     if (!user) {
       return response.status(404).json({
@@ -139,9 +135,9 @@ export async function verifyEmailController(request, response) {
 }
 
 // Đăng nhập
-export async function loginUserController(request, response) {
+export async function loginAdminController(request, response) {
   const { email, password } = request.body;
-  const user = await UserModel.findOne({ email: email });
+  const user = await AdminModel.findOne({ email: email });
 
   try {
     if (!user) {
@@ -152,13 +148,13 @@ export async function loginUserController(request, response) {
       });
     }
 
-    if (user.status !== "Hoạt động") {
-      return response.status(400).json({
-        success: false,
-        error: true,
-        message: "Liên hệ quản trị viên để được hỗ trợ",
-      });
-    }
+    // if (user.status !== "Hoạt động") {
+    //   return response.status(400).json({
+    //     success: false,
+    //     error: true,
+    //     message: "Liên hệ quản trị viên để được hỗ trợ",
+    //   });
+    // }
 
     if (user.verify_email !== true) {
       return response.status(400).json({
@@ -180,7 +176,7 @@ export async function loginUserController(request, response) {
     const accessToken = await generateAccessToken(user._id);
     const refreshToken = await generateRefreshToken(user._id);
 
-    const updateUser = await UserModel.findByIdAndUpdate(user?._id, {
+    const updateUser = await AdminModel.findByIdAndUpdate(user?._id, {
       last_login_date: new Date(),
     });
 
@@ -226,7 +222,7 @@ export async function logoutController(request, response) {
     response.clearCookie("accessToken", cookiesOption);
     response.clearCookie("refreshToken", cookiesOption);
 
-    const removeRefreshToken = await UserModel.findByIdAndUpdate(userid, {
+    const removeRefreshToken = await AdminModel.findByIdAndUpdate(userid, {
       refreshToken: "",
     });
 
@@ -246,14 +242,14 @@ export async function logoutController(request, response) {
 
 // Upload ảnh
 var imagesArr = [];
-export async function userAvatarController(request, response) {
+export async function adminAvatarController(request, response) {
   try {
     imagesArr = [];
 
     const userId = request.userId;
     const image = request.files;
 
-    const user = await UserModel.findOne({ _id: userId });
+    const user = await AdminModel.findOne({ _id: userId });
 
     const imgUrl = user.avatar;
 
@@ -329,76 +325,76 @@ export async function removeImageFromCloudinary(request, response) {
 }
 
 // Update chi tiết user
-export async function updateUserDetail(request, response) {
-  try {
-    const userId = request.userId;
-    const { name, email, mobile, password } = request.body;
+// export async function updateAdminDetail(request, response) {
+//   try {
+//     const userId = request.userId;
+//     const { name, email, mobile, password } = request.body;
 
-    const userExist = await UserModel.findById({ userId });
+//     const userExist = await AdminModel.findById({ userId });
 
-    if (!userExist) {
-      return response.status(400).send("Không thể cập nhật người dùng");
-    }
+//     if (!userExist) {
+//       return response.status(400).send("Không thể cập nhật người dùng");
+//     }
 
-    let verifyCode = "";
+//     let verifyCode = "";
 
-    if (email !== userExist.email) {
-      verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
-    }
+//     if (email !== userExist.email) {
+//       verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+//     }
 
-    let hashPassword = "";
+//     let hashPassword = "";
 
-    if (password) {
-      const salt = await bcryptjs.genSalt(10);
-      hashPassword = await bcryptjs.hash(password, salt);
-    } else {
-      hashPassword = userExist.password;
-    }
+//     if (password) {
+//       const salt = await bcryptjs.genSalt(10);
+//       hashPassword = await bcryptjs.hash(password, salt);
+//     } else {
+//       hashPassword = userExist.password;
+//     }
 
-    const updateUser = await UserModel.findByIdAndUpdate(
-      userId,
-      {
-        name: name,
-        mobile: mobile,
-        email: email,
-        verify_email: email !== userExist.email ? false : true,
-        password: hashPassword,
-        otp: verifyCode !== "" ? verifyCode : null,
-        otpExpires: verifyCode !== "" ? Date.now() + 600000 : "",
-      },
-      { new: true }
-    );
+//     const updateUser = await AdminModel.findByIdAndUpdate(
+//       userId,
+//       {
+//         name: name,
+//         mobile: mobile,
+//         email: email,
+//         verify_email: email !== userExist.email ? false : true,
+//         password: hashPassword,
+//         otp: verifyCode !== "" ? verifyCode : null,
+//         otpExpires: verifyCode !== "" ? Date.now() + 600000 : "",
+//       },
+//       { new: true }
+//     );
 
-    if (email !== userExist.email) {
-      await sendEmailFun({
-        sendTo: email,
-        subject: "Xác thực email từ cửa hàng Dahu",
-        text: "",
-        html: VerificationEmail(name, verifyCode),
-      });
-    }
+//     if (email !== userExist.email) {
+//       await sendEmailFun({
+//         sendTo: email,
+//         subject: "Xác thực email từ cửa hàng Dahu",
+//         text: "",
+//         html: VerificationEmail(name, verifyCode),
+//       });
+//     }
 
-    return response.json({
-      message: "Cập nhật người dùng thành công",
-      user: updateUser,
-      success: true,
-      error: false,
-    });
-  } catch (error) {
-    return response.status(500).json({
-      message: error.message || error,
-      success: false,
-      error: true,
-    });
-  }
-}
+//     return response.json({
+//       message: "Cập nhật người dùng thành công",
+//       user: updateUser,
+//       success: true,
+//       error: false,
+//     });
+//   } catch (error) {
+//     return response.status(500).json({
+//       message: error.message || error,
+//       success: false,
+//       error: true,
+//     });
+//   }
+// }
 
 // Quên mật khẩu
 export async function forgotPasswordController(request, response) {
   try {
     const { email } = request.body;
 
-    const user = await UserModel.findOne({ email: email });
+    const user = await AdminModel.findOne({ email: email });
 
     if (!user) {
       return response.status(400).json({
@@ -435,7 +431,7 @@ export async function verifyOtpForgotPassword(request, response) {
   try {
     const { email, otp } = request.body;
 
-    const user = await UserModel.findOne({ email: email });
+    const user = await AdminModel.findOne({ email: email });
 
     if (!user) {
       return response.status(400).json({
@@ -474,10 +470,10 @@ export async function verifyOtpForgotPassword(request, response) {
     user.otpExpires = "";
     await user.save();
 
-    return response.status(200).json({
+    return response.status(400).json({
       message: "Xác thực OTP thành công",
-      success: false,
-      error: true,
+      success: true,
+      error: false,
     });
   } catch (error) {
     return response.status(500).json({
@@ -501,7 +497,7 @@ export async function resetPassword(request, response) {
       });
     }
 
-    const user = await UserModel.findOne({ email });
+    const user = await AdminModel.findOne({ email });
 
     if (!user) {
       return response.status(404).json({
@@ -524,7 +520,7 @@ export async function resetPassword(request, response) {
 
     user.password = hashPassword;
     await user.save();
-    // const update = await UserModel.findOneAndUpdate(user._id, {
+    // const update = await AdminModel.findOneAndUpdate(user._id, {
     //   password: hashPassword,
     // });
 
@@ -599,25 +595,25 @@ export async function refreshToken(request, response) {
 }
 
 // Lấy chi tiết đăng nhập
-export async function userDetails(request, response) {
-  try {
-    const userId = request.userId;
+// export async function adminDetails(request, response) {
+//   try {
+//     const userId = request.userId;
 
-    const user = await UserModel.findById(userId).select(
-      "-password -refresh_token"
-    );
+//     const user = await AdminModel.findById(userId).select(
+//       "-password -refresh_token"
+//     );
 
-    return response.status(200).json({
-      message: "Lấy chi tiết đăng nhập thành công",
-      success: true,
-      error: false,
-      data: user,
-    });
-  } catch (error) {
-    return response.status(500).json({
-      message: "Có gì đó không đúng",
-      success: false,
-      error: true,
-    });
-  }
-}
+//     return response.status(200).json({
+//       message: "Lấy chi tiết đăng nhập thành công",
+//       success: true,
+//       error: false,
+//       data: user,
+//     });
+//   } catch (error) {
+//     return response.status(500).json({
+//       message: "Có gì đó không đúng",
+//       success: false,
+//       error: true,
+//     });
+//   }
+// }
