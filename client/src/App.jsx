@@ -63,7 +63,7 @@ function App() {
     }
   }, [isLogin])
 
-  const alerBox = (type, msg) =>{
+  const alertBox  = (type, msg) =>{
     if(type==="success"){
       toast.success(msg);
     }
@@ -77,7 +77,7 @@ function App() {
     setOpenCartPanel,
     openCartPanel,
     toggleCartPanel,
-    alerBox,
+    alertBox,
     isLogin,
     setIsLogin,
     userData,

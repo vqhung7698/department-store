@@ -8,10 +8,9 @@ import { MyContext } from "../../App";
 
 const Verify = () => {
 
-    const [otpValue, setOtpValue] = useState("");
-
-    const handleOtpSubmit = (otp) => {
-        setOtpValue(otp);
+    const [otp, setOtp] = useState("");
+    const handleOtpChange = (value) => {
+        setOtp(value);
     };
 
     const history = useNavigate();
@@ -19,7 +18,7 @@ const Verify = () => {
 
     // Đăng ký và xác thực email
     const verifyOTP = (e) => {
-        e.prevenDefault();
+        e.preventDefault();
 
         const actionType = localStorage.getItem("actionType");
 
@@ -29,11 +28,11 @@ const Verify = () => {
                 otp: otp
             }).then((res) => {
                 if(res?.error === false) {
-                    context.alertBox("success", res?.massage);
-                    localStorage.renoveItem("userEmail");
+                    context.alertBox("success", res?.message);
+                    localStorage.removeItem("userEmail");
                     history("/login")
                 }else {
-                    context.alertBox("error", res?.massage);
+                    context.alertBox("error", res?.message);
                 }
             })
         }else {
@@ -68,8 +67,8 @@ const Verify = () => {
                     </p>
 
                     <form onSubmit={verifyOTP}>
-                        <OtpBox length={6} onChange={handleOtpSubmit} />
-                        {otpValue && <p className="mt-4 text-black text-center">Mã OTP: {otpValue}</p>}
+                        <OtpBox length={6} onChange={handleOtpChange} />
+                        {otp && <p className="mt-4 text-black text-center">Mã OTP: {otp}</p>}
                         
                         <div className="mt-3 flex items-center justify-center">
                             <Button type="submit" className="btn-org flex gap-2"> 

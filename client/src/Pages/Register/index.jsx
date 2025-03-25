@@ -20,7 +20,7 @@ const Register = () => {
         password: ""
     })
 
-    const context = useContext(MyContext)
+    const context = useContext(MyContext);
     const history = useNavigate();
 
     const onChangeInput = (e) => {
@@ -42,17 +42,17 @@ const Register = () => {
         setIsLoading(true);
 
         if(formFields.name==="") {
-            context.alerBox("error", "Vui lòng nhập Họ Tên")
+            context.alertBox("error", "Vui lòng nhập Họ Tên")
             return false;
         }
 
         if(formFields.email==="") {
-            context.alerBox("error", "Vui lòng nhập Email của bạn")
+            context.alertBox("error", "Vui lòng nhập Email của bạn")
             return false
         }
 
         if(formFields.password==="") {
-            context.alerBox("error", "Vui lòng nhập Mật khẩu")
+            context.alertBox("error", "Vui lòng nhập Mật khẩu")
             return false
         }
 
@@ -61,16 +61,16 @@ const Register = () => {
 
             if(res?.error !== true) {
                 setIsLoading(false);
-                context.alerBox("success", res?.message);
+                context.alertBox ("success", res?.message);
                 localStorage.setItem("userEmail", formFields.email)
                 setFormFields({
                     name: "",
                     email: "",
                     password: ""
                 })
-                history("/verifyEmail")
+                history("/verify")
             }else {
-                context.alerBox("error", res?.message);
+                context.alertBox ("error", res?.message);
                 setIsLoading(false);
             }
             

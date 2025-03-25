@@ -25,10 +25,10 @@ const Login = () => {
 
     const forgotPass = () => {     
         if(formFields.email==="") {
-            context.alerBox("error", "Vui lòng nhập Email của bạn");
+            context.alertBox ("error", "Vui lòng nhập Email của bạn");
             return false;
         }else {
-            context.alerBox("success", `Đã gửi mã OTP đến ${formFields.email}`);
+            context.alertBox ("success", `Đã gửi mã OTP đến ${formFields.email}`);
             localStorage.setItem("userEmail", formFields.email);
             localStorage.setItem("actionType", 'forgotPassword');
 
@@ -36,10 +36,10 @@ const Login = () => {
                 email: formFields.email,
             }).then((res) => {
                 if(res?.error === false) {
-                    context.alerBox("success", res?.massage);                   
-                    history("/verifyEmail")
+                    context.alertBox ("success", res?.message);                   
+                    history("/verify")
                 }else {
-                    context.alerBox("error", res?.massage);
+                    context.alertBox ("error", res?.message);
                 }
             })
         }            
@@ -64,12 +64,12 @@ const Login = () => {
         setIsLoading(true);
 
         if(formFields.email==="") {
-            context.alerBox("error", "Vui lòng nhập Email của bạn")
+            context.alertBox("error", "Vui lòng nhập Email của bạn")
             return false
         }
 
         if(formFields.password==="") {
-            context.alerBox("error", "Vui lòng nhập Mật khẩu")
+            context.alertBox("error", "Vui lòng nhập Mật khẩu")
             return false
         }
 
@@ -78,7 +78,7 @@ const Login = () => {
 
             if(res?.error !== true) {
                 setIsLoading(false);
-                context.alerBox("success", res?.message);
+                context.alertBox("success", res?.message);
                 setFormFields({
                     email: "",
                     password: ""
@@ -87,11 +87,11 @@ const Login = () => {
                 localStorage.setItem("accessToken", res?.data?.accesstoken);
                 localStorage.setItem("refreshToken", res?.data?.refreshToken);
 
-                context.setIslogin(true);
+                context.setIsLogin(true);
 
                 history("/")
             }else {
-                context.alerBox("error", res?.message);
+                context.alertBox("error", res?.message);
                 setIsLoading(false);
             }
             

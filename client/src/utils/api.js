@@ -8,7 +8,7 @@ export const postData = async (url, formData) => {
             method: 'POST',
             headers: {
                 'Authorization':   `Bearer ${localStorage.getItem("token")}`,
-                'Content-Type': 'app;ication/json',
+                'Content-Type': 'application/json',
             },
 
             body: JSON.stringify(formData)
@@ -33,7 +33,7 @@ export const fetchDataFromApi = async (url) => {
         const { data } = await axios.get(apiUrl + url,
         {
             'Authorization':   `Bearer ${localStorage.getItem("token")}`,
-            'Content-Type': 'app;ication/json',
+            'Content-Type': 'application/json',
         })
         return data;
     } catch (error) {

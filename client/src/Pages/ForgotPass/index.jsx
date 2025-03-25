@@ -3,21 +3,15 @@ import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import Button from '@mui/material/Button';
 import { useContext, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../../App';
 import CircularProgress from '@mui/material/CircularProgress';
 import { postData } from '../../utils/api';
-
+import { useNavigate } from "react-router-dom";
 
 const ForgotPass = () => {
 
     const context = useContext(MyContext);
-    // const history = useNavigate();
-
-    // const comformPass = () => {     
-    //     context.alerBox("success", "Đã thay đổi mật khẩu")    
-    //     history("/forgot-password");      
-    // }
+    const history = useNavigate();
 
     const [isLoading, setIsLoading] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(false);
@@ -47,19 +41,19 @@ const ForgotPass = () => {
         setIsLoading(true);
 
         if(formFields.newPassword==="") {
-            context.alerBox("error", "Vui lòng nhập mật khẩu mới");
+            context.alertBox("error", "Vui lòng nhập mật khẩu mới");
             setIsLoading(false);
             return false
         }
 
         if(formFields.confirmPassword==="") {
-            context.alerBox("error", "Vui lòng nhập lại mật khẩu");
+            context.alertBox("error", "Vui lòng nhập lại mật khẩu");
             setIsLoading(false);
             return false
         }
 
         if(formFields.confirmPassword !== formFields.newPassword) {
-            context.alerBox("error", "Mật khẩu không trùng khớp");
+            context.alertBox("error", "Mật khẩu không trùng khớp");
             setIsLoading(false);
             return false
         }
@@ -69,12 +63,12 @@ const ForgotPass = () => {
             if(res?.error=== false) {
                 localStorage.removeItem("userEmail")
                 localStorage.removeItem("actionType")
-                context.alerBox("success", res?.message); 
+                context.alertBox("success", res?.message); 
                 setIsLoading(false);
                 history("/login")
             }
             else {
-                context.alerBox("error", res?.message); 
+                context.alertBox("error", res?.message); 
             }
         })
     }
