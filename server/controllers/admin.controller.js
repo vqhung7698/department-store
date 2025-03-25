@@ -595,25 +595,25 @@ export async function refreshToken(request, response) {
 }
 
 // Lấy chi tiết đăng nhập
-// export async function adminDetails(request, response) {
-//   try {
-//     const userId = request.userId;
+export async function adminDetails(request, response) {
+  try {
+    const adminId = request.userId;
 
-//     const user = await AdminModel.findById(userId).select(
-//       "-password -refresh_token"
-//     );
+    const admin = await AdminModel.findById(adminId).select(
+      "-password -refresh_token"
+    );
 
-//     return response.status(200).json({
-//       message: "Lấy chi tiết đăng nhập thành công",
-//       success: true,
-//       error: false,
-//       data: user,
-//     });
-//   } catch (error) {
-//     return response.status(500).json({
-//       message: "Có gì đó không đúng",
-//       success: false,
-//       error: true,
-//     });
-//   }
-// }
+    return response.status(200).json({
+      message: "Lấy chi tiết đăng nhập thành công",
+      success: true,
+      error: false,
+      data: admin,
+    });
+  } catch (error) {
+    return response.status(500).json({
+      message: "Có gì đó không đúng",
+      success: false,
+      error: true,
+    });
+  }
+}

@@ -53,7 +53,7 @@ const Login = () => {
                 [name]: value
             }
         })
-    }
+    } 
 
     const valideValue = Object.values(formFields).every(el => el)
 
@@ -77,19 +77,20 @@ const Login = () => {
             console.log(res)
 
             if(res?.error !== true) {
-                setIsLoading(false);
-                context.alertBox("success", res?.message);
-                setFormFields({
-                    email: "",
-                    password: ""
-                })
+              setIsLoading(false);
+              context.alertBox("success", res?.message);
+              setFormFields({
+                email: "",
+                password: "",
+              });
 
-                localStorage.setItem("accessToken", res?.data?.accesstoken);
-                localStorage.setItem("refreshToken", res?.data?.refreshToken);
+            //   localStorage.setItem("accessToken", res?.data?.accesstoken);
+              localStorage.setItem("accessToken", res?.data?.accessToken); // Chữ T hoa
+              localStorage.setItem("refreshToken", res?.data?.refreshToken);
 
-                context.setIsLogin(true);
+              context.setIsLogin(true);
 
-                history("/")
+              history("/");
             }else {
                 context.alertBox("error", res?.message);
                 setIsLoading(false);
