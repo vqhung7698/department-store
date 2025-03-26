@@ -17,7 +17,8 @@ const app = express();
 // app.use(cors());
 app.use(
   cors({
-    origin: "http://localhost:5173", // cho phép chỉ front-end này truy cập
+    // origin: "http://localhost:5173", // cho phép chỉ front-end này truy cập
+    origin: "http://localhost:5174", // cho phép chỉ front-end này truy cập
     credentials: true, // cho phép gửi cookie và credentials
   })
 );

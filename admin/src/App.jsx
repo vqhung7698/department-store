@@ -26,6 +26,9 @@ import Orders from "./Pages/Orders/index.jsx";
 import ForgotPassword from "./Pages/ForgotPassword/index.jsx";
 import VerifyAccount from "./Pages/VerifyAccount/index.jsx";
 import ChangePassword from "./Pages/ChangePassword/index.jsx";
+import toast, { Toaster } from "react-hot-toast";
+import { fetchDataFromApi } from "../utils/api";
+import { useEffect } from "react";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -35,7 +38,8 @@ const MyContext = createContext();
 
 function App() {
   const [isSidebarOpen, setisSidebarOpen] = useState(true);
-  const [isLogin, setIslogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const [isOpenFullScreenPanel, setIsOpenFullScreenPanel] = useState({
     open: false,
@@ -288,13 +292,41 @@ function App() {
     },
   ]);
 
+  const alertBox = (type, msg) => {
+    if (type === "success") {
+      toast.success(msg);
+    }
+    if (type === "error") {
+      toast.error(msg);
+    }
+  };
+
+  useEffect(() => {
+    // const token = localStorage.getItem("accesstoken");
+    const token = localStorage.getItem("accessToken"); // Chữ T hoa
+    if (token !== undefined && token !== null && token !== "") {
+      setIsLogin(true);
+
+      fetchDataFromApi(`/api/admin/adminDetails?token=${token}`).then((res) => {
+        // fetchDataFromApi(`/api/user/userDetails?token=${token}`).then((res) => {
+        console.log(res);
+        setUserData(res.data);
+      });
+    } else {
+      setIsLogin(false);
+    }
+  }, [isLogin]);
+
   const values = {
     isSidebarOpen,
     setisSidebarOpen,
     isLogin,
-    setIslogin,
+    setIsLogin,
     isOpenFullScreenPanel,
     setIsOpenFullScreenPanel,
+    alertBox,
+    setUserData,
+    userData,
   };
 
   return (
@@ -346,6 +378,8 @@ function App() {
             <AddSubCategory />
           )}
         </Dialog>
+
+        <Toaster />
       </MyContext.Provider>
     </>
   );

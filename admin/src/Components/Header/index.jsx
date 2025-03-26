@@ -12,6 +12,7 @@ import { FaRegUser } from "react-icons/fa6";
 import { IoMdLogOut } from "react-icons/io";
 import { MyContext } from "../../App";
 import Link from "@mui/material/Link";
+import { fetchDataFromApi } from "../../../utils/api";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -33,6 +34,26 @@ const Header = () => {
   };
 
   const context = useContext(MyContext);
+
+  const logout = () => {
+    setAnchorMyAcc(null);
+
+    // fetchDataFromApi(
+    //   `/api/user/logout?token=${localStorage.getItem("accessToken")}`,
+    //   { withCredentials: true }
+    // ).then((res) => {
+    fetchDataFromApi(
+      `/api/admin/logout?token=${localStorage.getItem("accessToken")}`,
+      { withCredentials: true }
+    ).then((res) => {
+      console.log(res);
+      if (res?.error === false) {
+        context.setIsLogin(false);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+      }
+    });
+  };
 
   return (
     <header
@@ -119,9 +140,11 @@ const Header = () => {
                   </div>
 
                   <div className="info">
-                    <h3 className="text-[15px] font-[500] leading-5">Hanako</h3>
+                    <h3 className="text-[15px] font-[500] leading-5">
+                      {context?.userData?.name}
+                    </h3>
                     <p className="text-[12px] font-[400] opacity-70">
-                      admin@gmail.com
+                      {context?.userData?.email}
                     </p>
                   </div>
                 </div>
@@ -137,17 +160,16 @@ const Header = () => {
                 <span className="text-[14px]"> Hồ sơ</span>
               </MenuItem>
 
-              <MenuItem
-                onClick={handleCloseMyAcc}
-                className="flex items-center gap-3"
-              >
+              <MenuItem onClick={logout} className="flex items-center gap-3">
                 <IoMdLogOut className="text-[18px]" />
                 <span className="text-[14px]"> Đăng xuất</span>
               </MenuItem>
             </Menu>
           </div>
         ) : (
-          <Button className="btn-blue btn-sm !rounded-full">Đăng nhập</Button>
+          <Link to="/login">
+            <Button className="btn-blue btn-sm !rounded-full">Đăng nhập</Button>
+          </Link>
         )}
       </div>
     </header>

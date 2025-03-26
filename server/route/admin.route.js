@@ -9,7 +9,7 @@ import {
   resetPassword,
   // updateAdminDetail,
   adminAvatarController,
-  // adminDetails,
+  adminDetails,
   verifyEmailController,
   verifyOtpForgotPassword,
 } from "../controllers/admin.controller.js";
@@ -35,7 +35,7 @@ adminRouter.post("/forgotPassword", forgotPasswordController);
 adminRouter.post("/verifyOtpForgotPassword", verifyOtpForgotPassword);
 adminRouter.post("/resetPassword", resetPassword);
 adminRouter.post("/refreshToken", refreshToken);
-// adminRouter.get("/adminDetails", auth, adminDetails);
+adminRouter.get("/adminDetails", auth, adminDetails);
 
 export default adminRouter;
 

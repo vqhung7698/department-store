@@ -47,7 +47,7 @@ const Header = () => {
 
     const logout = () => {
         setAnchorEl(null);
-        
+
         fetchDataFromApi(`/api/user/logout?token=${localStorage.getItem('accessToken')}`, 
             {withCredentials: true}).then((res) =>{
             console.log(res);
