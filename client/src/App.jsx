@@ -48,12 +48,12 @@ function App() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("accesstoken");
+    const token = localStorage.getItem('accessToken');
 
-    if(token!==undefined && token!==null && token!=="") {
+    if(token !== undefined && token !== null && token !== "") {
       setIsLogin(true);
 
-      fetchDataFromApi(`/api/user/userDetails?token=${token}`).then((res) => {
+      fetchDataFromApi(`/api/user/userDetails`).then((res) => {
         console.log(res)
         setUserData(res.data);
       })

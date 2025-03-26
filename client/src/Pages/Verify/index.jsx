@@ -22,7 +22,8 @@ const Verify = () => {
 
         const actionType = localStorage.getItem("actionType");
 
-        if (actionType!=="forgotPassword") {
+        if (actionType!=="forgot-password") {
+
             postData("/api/user/verifyEmail", {
                 email: localStorage.getItem("userEmail"),
                 otp: otp
@@ -35,17 +36,18 @@ const Verify = () => {
                     context.alertBox("error", res?.message);
                 }
             })
-        }else {
+
+        }
+        else {
             postData("/api/user/verifyOtpForgotPassword", {
-                email: localStorage.getItem("userEmail"),
-                otp: otp
+                email: localStorage.getItem("userEmail"),    
+                otp: otp        
             }).then((res) => {
                 if(res?.error === false) {
-                    context.alertBox("success", res?.massage);
-                    
-                    history("/forgotPassword")
+                    context.alertBox("success", res?.message);
+                    history("/forgot-password")
                 }else {
-                    context.alertBox("error", res?.massage);
+                    context.alertBox("error", res?.message);
                 }
             })
         }
@@ -63,7 +65,7 @@ const Verify = () => {
                     </h3>
             
                     <p className="text-[14px] text-center mt-2 mb-3">
-                        Mã OTP sẽ gửi đến <span className="text-primary font-blod">{localStorage.getItem("userEmail")}</span>
+                        Mã OTP sẽ gửi đến <span className="text-primary font-bold">{localStorage.getItem("userEmail")}</span>
                     </p>
 
                     <form onSubmit={verifyOTP}>

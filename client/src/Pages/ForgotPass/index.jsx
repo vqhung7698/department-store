@@ -114,7 +114,7 @@ const ForgotPass = () => {
 
                             <TextField 
                                 type={isShowPassword2===false ? 'password' : 'text'}
-                                id="conform_password" 
+                                id="confirm_password" 
                                 label="Nhập lại mật khẩu *" 
                                 variant="outlined" 
                                 className='w-full'

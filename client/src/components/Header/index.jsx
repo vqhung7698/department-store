@@ -47,8 +47,8 @@ const Header = () => {
 
     const logout = () => {
         setAnchorEl(null);
-
-        fetchDataFromApi(`/api/user/logou?token=${localStorage.getItem('accessToken')}t`, 
+        
+        fetchDataFromApi(`/api/user/logout?token=${localStorage.getItem('accessToken')}`, 
             {withCredentials: true}).then((res) =>{
             console.log(res);
             if(res?.error === false) {
@@ -58,6 +58,9 @@ const Header = () => {
 
             }
         })
+        .catch(err => {
+            console.error("Logout error:", err);
+        });
     }
 
     return (
@@ -196,7 +199,6 @@ const Header = () => {
                                             </MenuItem>
                                         </Link>
                                        
-                                        
                                             <MenuItem onClick={logout} className="flex gap-2 !py-2">
                                                 <RiLogoutBoxRLine className="text-[18px]"/>
                                                 <span className="text-[14px]"> Đăng xuất</span>

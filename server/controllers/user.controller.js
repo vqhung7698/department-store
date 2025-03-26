@@ -474,10 +474,16 @@ export async function verifyOtpForgotPassword(request, response) {
     user.otpExpires = "";
     await user.save();
 
+    // return response.status(200).json({
+    //   message: "Xác thực OTP thành công",
+    //   success: false,
+    //   error: true,
+    // });
+
     return response.status(200).json({
       message: "Xác thực OTP thành công",
-      success: false,
-      error: true,
+      success: true,
+      error: false,
     });
   } catch (error) {
     return response.status(500).json({
@@ -607,7 +613,7 @@ export async function userDetails(request, response) {
       "-password -refresh_token"
     );
 
-    return response.status(200).json({
+    return response.json({
       message: "Lấy chi tiết đăng nhập thành công",
       success: true,
       error: false,

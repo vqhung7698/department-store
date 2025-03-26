@@ -31,6 +31,7 @@ const Login = () => {
             context.alertBox ("success", `Đã gửi mã OTP đến ${formFields.email}`);
             localStorage.setItem("userEmail", formFields.email);
             localStorage.setItem("actionType", 'forgotPassword');
+            // localStorage.setItem("actionType", 'forgot-password');
 
             postData("/api/user/forgotPassword", {
                 email: formFields.email,
@@ -84,7 +85,7 @@ const Login = () => {
                     password: ""
                 })
 
-                localStorage.setItem("accessToken", res?.data?.accesstoken);
+                localStorage.setItem("accessToken", res?.data?.accessToken);
                 localStorage.setItem("refreshToken", res?.data?.refreshToken);
 
                 context.setIsLogin(true);
